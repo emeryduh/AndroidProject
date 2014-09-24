@@ -1,0 +1,89 @@
+package com.comp313;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.format.Time;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+
+public class MainActivity extends Activity {
+	
+	// Used to hold our @id/btnSend component in main_activity
+	private Button btnSend;
+	
+	// Used to hold our @id/chatArea component in main_activity
+	private TextView chatArea;
+	
+	// Used to hold our @id/clientText component in main_activity
+	private EditText clientText;
+	
+	// Used to hold our client's user name (default: Guest)
+	private String username = "Guest";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        setupComponents();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
+    public void setupComponents() {
+    	
+    	chatArea = (TextView) findViewById(R.id.chatArea);
+    	clientText = (EditText) findViewById(R.id.clientText);
+    	btnSend = (Button) findViewById(R.id.btnSend);
+    	
+    	btnSend.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				String entryText = clientText.getText().toString();
+				if(entryText.length() > 0) {
+					// Get our time and format it
+			    	Time curTime = new Time();
+			    	curTime.setToNow();
+			    	String time = String.format("{0:00}:{1:00}", 
+			    			curTime.hour, 
+			    			curTime.minute);
+			    	
+			    	// Send message to server, append to chat, clear text box
+			    	sendMessageToServer(entryText);
+					chatArea.append("\n[" + time + "]" + username + ":" + entryText);
+					clientText.setText("");
+				}
+			}
+    		
+    	});
+    }
+    
+    public void sendMessageToServer(String entryText) {
+    	// TODO: This needs to be populated with code to communicate with the server
+    }
+}

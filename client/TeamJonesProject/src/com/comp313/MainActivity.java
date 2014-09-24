@@ -2,16 +2,36 @@ package com.comp313;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
+	
+	// Used to hold our @id/btnSend component in main_activity
+	private Button btnSend;
+	
+	// Used to hold our @id/chatArea component in main_activity
+	private TextView chatArea;
+	
+	// Used to hold our @id/clientText component in main_activity
+	private EditText clientText;
+	
+	// Used to hold our client's user name (default: Guest)
+	private String username = "Guest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        setupComponents();
     }
 
 
@@ -32,5 +52,40 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    // Setup all of our components within activity_main.xml
+    // Also setup all controllers and listeners for components
+    public void setupComponents() {
+    	
+    	chatArea = (TextView) findViewById(R.id.chatArea);
+    	clientText = (EditText) findViewById(R.id.clientText);
+    	btnSend = (Button) findViewById(R.id.btnSend);
+    	
+    	btnSend.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				String entryText = clientText.getText().toString();
+				if(entryText.length() > 0) {
+					// Get our time and format it
+			    	Time curTime = new Time();
+			    	curTime.setToNow();
+			    	//String time = "[" + curTime.hour + ":" + curTime.minute + "]";
+			    	String time = String.format("%02d:%02d", curTime.hour, curTime.minute);
+			    	
+			    	// Send message to server, append to chat, clear text box
+			    	sendMessageToServer(entryText);
+					chatArea.append("\n[" + time + "] " + username + ": " + entryText);
+					clientText.setText("");
+				}
+			}
+    		
+    	});
+    }
+    
+    // Attempt to send message to chat server
+    public void sendMessageToServer(String entryText) {
+    	// TODO: This needs to be populated with code to communicate with the server
     }
 }
