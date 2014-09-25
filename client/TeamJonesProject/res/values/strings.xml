@@ -3,10 +3,27 @@
 
     <string name="app_name">CentChat</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- Chat screen text -->
     <string name="btnSend_text">Send</string>
     <string name="default_text">Welcome to CentChat!</string>
     <string name="default_clientType_text">Type a message here.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- Login screen text -->
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
+    <string name="rememberMe_text">Remember Me</string>
+    <string name="login_text">Login</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    
+    <!-- Registration screen text -->
+    <string name="username_registration_text">Username</string>
+    <string name="email_registration_text">E-mail</string>
+    <string name="password_registration_text">Password</string>
+    <string name="password_registration_check_text">Re-enter Password</string>
+    <string name="submit_registration_text">Submit</string>
+    
 
 </resources>
