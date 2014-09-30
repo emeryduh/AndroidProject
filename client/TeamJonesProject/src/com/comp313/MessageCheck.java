@@ -24,7 +24,7 @@ public class MessageCheck {
 		return messageContent;
 	}
 	
-	public static MessageInformation getMessageInfo(MessageInfo[] messageInfo)
+	/*public static MessageInformation getMessageInfo(MessageInfo[] messageInfo)
 	{
 		MessageInformation messageContent = null;
 		if (messageInfo != null) 
@@ -43,6 +43,6 @@ public class MessageCheck {
 	public static MessageInformation setMessageInfo(MessageInfo[] messageInfo)
 	{
 		MessageCheck.messageInfo = messageInfo;
-	}
+	}*/
 
 }
