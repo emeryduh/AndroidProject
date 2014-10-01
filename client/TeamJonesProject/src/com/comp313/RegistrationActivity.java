@@ -1,11 +1,12 @@
 package com.comp313;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class RegistrationActivity extends ActionBarActivity {
+public class RegistrationActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

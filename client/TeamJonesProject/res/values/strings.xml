@@ -25,5 +25,10 @@
     <string name="register_submit_text">Register</string>
     <string name="register_activity_title">Registration Form</string>
     
+     <!-- Launch screen text -->
+    <string name="launch_header_text">CHIT CHAT</string>
+    <string name="launch_logo_text">Meet and connect new people</string>
+    <string name="launch_btnsignup_text">Sign Up</string>
+    <string name="launch_btnLoginp_text">Login</string>
 
 </resources>
