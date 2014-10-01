@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<!-- Application Global text -->
     <string name="app_name">CentChat</string>
     <string name="action_settings">Settings</string>
+    <string name="headerDesc">The image is a header for the CentChat application.</string>
 
     <!-- Chat screen text -->
-    <string name="btnSend_text">Send</string>
-    <string name="default_text">Welcome to CentChat!</string>
-    <string name="default_clientType_text">Type a message here.</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="chat_btnSend_text">Send</string>
+    <string name="chat_chatHeader_text">Welcome to CentChat!</string>
+    <string name="chat_entryHint_text">Type a message here.</string>
 
     <!-- Login screen text -->
-    <string name="username_text">Username</string>
-    <string name="password_text">Password</string>
-    <string name="rememberMe_text">Remember Me</string>
-    <string name="login_text">Login</string>
-    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="login_username_text">Username</string>
+    <string name="login_password_text">Password</string>
+    <string name="login_rememberMe_text">Remember Me</string>
+    <string name="login_loginButton_text">Login</string>
+    <string name="login_activity_title">Login Form</string>
     
     <!-- Registration screen text -->
-    <string name="username_registration_text">Username</string>
-    <string name="email_registration_text">E-mail</string>
-    <string name="password_registration_text">Password</string>
-    <string name="password_registration_check_text">Re-enter Password</string>
-    <string name="submit_registration_text">Submit</string>
+    <string name="register_username_text">Username</string>
+    <string name="register_email_text">Email</string>
+    <string name="register_password_text">Password</string>
+    <string name="register_password_check_text">Re-enter Password</string>
+    <string name="register_submit_text">Register</string>
+    <string name="register_activity_title">Registration Form</string>
     
 
 </resources>

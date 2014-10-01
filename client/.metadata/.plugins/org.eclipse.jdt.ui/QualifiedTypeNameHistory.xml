@@ -7,4 +7,5 @@
 <fullyQualifiedTypeName name="com.comp313.R.id"/>
 <fullyQualifiedTypeName name="android.text.format.Time"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
 </qualifiedTypeNameHistroy>

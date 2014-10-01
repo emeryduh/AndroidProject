@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Application Global text -->
+    <string name="app_name">CentChat</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Chat screen text -->
+    <string name="chat_btnSend_text">Send</string>
+    <string name="chat_default_text">Welcome to CentChat!</string>
+    <string name="chat_default_clientType_text">Type a message here.</string>
+
+    <!-- Login screen text -->
+    <string name="login_username_text">Username</string>
+    <string name="login_password_text">Password</string>
+    <string name="login_rememberMe_text">Remember Me</string>
+    <string name="login_loginButton_text">Login</string>
+    <string name="login_activity_title">Login Form</string>
+    
+    <!-- Registration screen text -->
+    <string name="register_username_text">Username</string>
+    <string name="register_email_text">Email</string>
+    <string name="register_password_text">Password</string>
+    <string name="register_password_check_text">Re-enter Password</string>
+    <string name="register_submit_text">Register</string>
+    <string name="register_activity_title">Registration Form</string>
+    
+
+</resources>

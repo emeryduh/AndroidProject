@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	
+    <!-- Chat Activity Configuration -->
+    <dimen name="chatbox_min_height">15dp</dimen>
+    <dimen name="chatbox_max_height">150dp</dimen>
+    <dimen name="chatbox_min_width">15dp</dimen>
+    <dimen name="chatbox_max_width">150dp</dimen>
+    
+    <!-- Login Activity Configuration -->
+    <dimen name="login_bodySpacing_headerHeight">70dp</dimen>
+    <dimen name="login_bodySpacing_top">20dp</dimen>
+    
+    <!-- Registration Activity Configuration -->
+    <dimen name="register_bodySpacing_bottomMargins">18dp</dimen>
+</resources>

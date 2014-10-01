@@ -9,4 +9,12 @@
     <dimen name="chatbox_max_height">150dp</dimen>
     <dimen name="chatbox_min_width">15dp</dimen>
     <dimen name="chatbox_max_width">150dp</dimen>
+    
+    <!-- Login Activity Configuration -->
+    <dimen name="login_bodySpacing_headerHeight">70dp</dimen>
+    <dimen name="login_bodySpacing_top">20dp</dimen>
+    
+    <!-- Registration Activity Configuration -->
+    <dimen name="register_bodySpacing_headerHeight">70dp</dimen>
+    <dimen name="register_bodySpacing_bottomMargins">18dp</dimen>
 </resources>
