@@ -1,7 +1,7 @@
 package com.comp313;
 
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +12,16 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+	}
+	
+	public void callIntent(android.view.View view) {
+		Intent intent = null;
+		switch (view.getId()) {
+		case R.id.btnLogin:
+			intent = new Intent(this, ChatActivity.class);			
+			startActivity(intent);			
+			break;		
+		}
 	}
 
 	@Override

@@ -80,9 +80,10 @@
             android:text="@string/login_rememberMe_text" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="callIntent"
             android:layout_gravity="center_horizontal"
             android:text="@string/login_loginButton_text" />
 
