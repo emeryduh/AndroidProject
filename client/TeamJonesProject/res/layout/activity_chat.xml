@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/bottom_write_bar"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/message_bar" >
 
@@ -25,8 +25,8 @@
 
         <Button
             android:id="@+id/btnSend"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignBottom="@+id/txtChatText"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_write_bar"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
        >
     </ListView>
 
