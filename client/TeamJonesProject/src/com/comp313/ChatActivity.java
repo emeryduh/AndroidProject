@@ -3,9 +3,12 @@
  */
 package com.comp313;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
@@ -41,11 +44,16 @@ public class ChatActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ActionBar bar = getActionBar();
+		//for color
+		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CF000F")));
+		
 		setContentView(R.layout.activity_chat);
 
 		// get the intent
-		Intent i = getIntent();
-
+		Intent i = getIntent();	
+		
 		// find and assign send button control instance 
 		btnSend = (Button) findViewById(R.id.btnSend);
 

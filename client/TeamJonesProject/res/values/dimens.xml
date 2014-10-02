@@ -24,12 +24,29 @@
     <dimen name="login_password_marginleft">10dp</dimen>
     <dimen name="login_password_marginright">10dp</dimen>
     <dimen name="login_btnlogin_marginbottom">30dp</dimen>
-    <dimen name="login_btnlogin_marginleft">30dp</dimen>
-    <dimen name="login_btnlogin_marginright">30dp</dimen>
+    <dimen name="login_btnlogin_marginleft">40dp</dimen>
+    <dimen name="login_btnlogin_marginright">40dp</dimen>
 
     <!-- Registration Activity Configuration -->
     <dimen name="register_bodySpacing_headerHeight">70dp</dimen>
     <dimen name="register_bodySpacing_bottomMargins">18dp</dimen>
+    <dimen name="register_bodySpacing_top">20dp</dimen>
+    <dimen name="register_textbox_top">20dp</dimen>
+    <dimen name="register_logotext_margintop">30dp</dimen>
+    <dimen name="register_logotext_size">35sp</dimen>
+    <dimen name="register_layoutbody_top">30dp</dimen>
+    <dimen name="register_username_height">50dp</dimen>
+    <dimen name="register_username_marginleft">10dp</dimen>
+    <dimen name="register_username_marginright">10dp</dimen>
+    <dimen name="register_email_height">50dp</dimen>
+    <dimen name="register_email_marginleft">10dp</dimen>
+    <dimen name="register_email_marginright">10dp</dimen>
+    <dimen name="register_password_height">50dp</dimen>
+    <dimen name="register_password_marginleft">10dp</dimen>
+    <dimen name="register_password_marginright">10dp</dimen>
+    <dimen name="register_btnsignin_marginbottom">30dp</dimen>
+    <dimen name="register_btnsignin_marginleft">40dp</dimen>
+    <dimen name="register_btnsignin_marginright">40dp</dimen>
 
     <!-- Launch Activity Configuration -->
     <dimen name="launch_logotext_top">80dp</dimen>

@@ -2,16 +2,33 @@ package com.comp313;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.TextView;
 
 public class RegistrationActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// hide the title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		setContentView(R.layout.activity_registration);
+		
+		// gets the font style to asset resource
+		Typeface type = Typeface.createFromAsset(getAssets(),
+				"fonts/Roboto-Regular.ttf");
+
+		// gets the text view instance using id
+		TextView headerText = (TextView) findViewById(R.id.tvLogoText);
+
+		// sets the font style to text view
+		headerText.setTypeface(type);
 	}
 
 	@Override

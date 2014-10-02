@@ -19,6 +19,9 @@ public class ChatArrayAdapter extends ArrayAdapter<Object>{
 	// holds the text view control 
 	private TextView chatText;
 	
+	// holds the text view name control 
+    private TextView tvName;
+	
 	// this list will hold chat messages 
 	private List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
 	
@@ -62,10 +65,15 @@ public class ChatArrayAdapter extends ArrayAdapter<Object>{
 		// get the position of the item
 		ChatMessage chatMessageObj = getItem(position);
 		
-		// get the text view instance from list tiem template 
+		// get the text view instance from list item template 
 		chatText = (TextView) row.findViewById(R.id.singleMessage);
 		// set the text 
-		chatText.setText(chatMessageObj.message);
+		chatText.setText(chatMessageObj.message);	
+		
+		/*// get the text view instance from list item template 
+		tvName = (TextView) row.findViewById(R.id.tvName);
+				// set the text 
+		tvName.setText("Vivek");*/
 		
 		// set the background bubble image based on boolean value
 		chatText.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_a : R.drawable.bubble_b);

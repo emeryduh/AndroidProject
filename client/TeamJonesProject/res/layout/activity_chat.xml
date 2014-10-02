@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/chatbg"
+    android:background="@color/chatbg"   
     tools:context="com.comp313.ChatActivity" >
 
     <RelativeLayout
@@ -41,6 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_write_bar"
         android:layout_alignParentTop="true"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:listSelector="#00000000"
         android:layout_marginBottom="@dimen/chat_lstChatMessage_marginbottom"
        >
     </ListView>
