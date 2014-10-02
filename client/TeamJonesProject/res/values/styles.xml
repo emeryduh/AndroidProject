@@ -1,6 +1,13 @@
-<resources>
-
+<resources>   
     <color name="white">#ffffff</color>
+    <color name="wetasphalt">#34495e</color>
+    <color name="turquoise">#1abc9c</color>
+    <color name="peterriver">#3498db</color>
+    <color name="buttonbackground">#ededed</color>
+    <color name="clouds">#ecf0f1</color>
+    <!-- <color name="alizarin">#e74c3c</color> -->
+    <color name="alizarin">#CF000F</color>
+    <color name="asbestos">#7f8c8d</color>
     <color name="barDarkColor">#CECECE</color>
     <color name="barMeduimColor">#DFDEE0</color>
     <color name="barLightColor">#F2F2F2</color>

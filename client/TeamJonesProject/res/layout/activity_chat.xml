@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/bottom_write_bar"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/chat_layout_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/message_bar" >
 
@@ -16,23 +16,23 @@
             android:id="@+id/txtChatText"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_margin="5sp"
+            android:layout_margin="@dimen/chat_chattext_margin"
             android:layout_toLeftOf="@+id/btnSend"
             android:ems="10"
             android:hint="@string/chat_entryHint_text"
             android:inputType="textMultiLine"
-            android:padding="5sp" />
+            android:padding="@dimen/chat_chattext_padding" />
 
         <Button
             android:id="@+id/btnSend"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/chat_btnsend_width"
+            android:layout_height="@dimen/chat_btnsend_height"
             android:layout_alignBottom="@+id/txtChatText"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/chat_btnsend_marginright"
             android:background="@drawable/send_button"
-            android:paddingTop="5sp" />
+            android:paddingTop="@dimen/chat_btnsend_padding_top" />
     </RelativeLayout>
 
     <ListView
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_write_bar"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/chat_lstChatMessage_marginbottom"
        >
     </ListView>
 

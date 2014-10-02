@@ -21,15 +21,21 @@ import android.widget.ListView;
  * @author Vivekanandhan
  * 
  */
-public class ChatActivity extends Activity {
-	private static final String TAG = "ChatActivity";
+public class ChatActivity extends Activity {	
 
+	// custom array adapter to hold arbitrary objects
 	private ChatArrayAdapter chatArrayAdapter;
+	
+	// used to hold our @id/lstChatMessages component in chat_activity
 	private ListView lstChatMessages;
+	
+	// used to hold our @id/txtChatText component in chat_activity
 	private EditText txtChatText;
+	
+	// used to hold our @id/btnSend component in chat_activity
 	private Button btnSend;
-
-	Intent intent;
+	
+	// holds the boolean value to determine left or right bubble 
 	private boolean side = false;
 
 	@Override
@@ -37,17 +43,26 @@ public class ChatActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
 
+		// get the intent
 		Intent i = getIntent();
 
+		// find and assign send button control instance 
 		btnSend = (Button) findViewById(R.id.btnSend);
 
+		// find and assign list control control instance
 		lstChatMessages = (ListView) findViewById(R.id.lstChatMessages);
 
+		// get the list view item style layout and assign to array adapter
 		chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
 				R.layout.chat_list_item);
+		
+		// set the adapter to list view control
 		lstChatMessages.setAdapter(chatArrayAdapter);
 
+		// find and assign chat text control instance
 		txtChatText = (EditText) findViewById(R.id.txtChatText);
+		
+		// hook the event to chat text control. this event will capture enter button click
 		txtChatText.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if ((event.getAction() == KeyEvent.ACTION_DOWN)
@@ -57,6 +72,8 @@ public class ChatActivity extends Activity {
 				return false;
 			}
 		});
+		
+		// hook the event to chat send button control. this occurs when users click send button
 		btnSend.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -64,9 +81,11 @@ public class ChatActivity extends Activity {
 			}
 		});
 
-		lstChatMessages
-				.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-		lstChatMessages.setAdapter(chatArrayAdapter);
+		// puts the list or grid into transcript mode. In this mode the list or grid will always scroll to the bottom to show new items.
+		lstChatMessages.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+		
+		// set the array adapter to listview
+		//lstChatMessages.setAdapter(chatArrayAdapter);
 
 		// to scroll the list view to bottom on data change
 		chatArrayAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -78,10 +97,13 @@ public class ChatActivity extends Activity {
 		});
 	}
 
+	// add the new text to adapter which push the message to list view
 	private boolean sendChatMessage() {
 		chatArrayAdapter.add(new ChatMessage(side, txtChatText.getText()
 				.toString()));
 		txtChatText.setText("");
+		
+		// change the bool value after text entered. this will be modified
 		side = !side;
 		return true;
 	}
