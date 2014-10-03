@@ -31,10 +31,9 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 
 	// holds the container object from list item template
 	private LinearLayout parentContainer;
-	
+
 	// holds the container object from list item template
 	private LinearLayout childContainer;
-
 
 	// add new chat message to the list
 	public void add(ChatMessage object) {
@@ -70,12 +69,10 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		}
 
 		// get the parent container from list item template
-		parentContainer = (LinearLayout) row
-				.findViewById(R.id.parentContainer);
-		
+		parentContainer = (LinearLayout) row.findViewById(R.id.parentContainer);
+
 		// get the child container from list item template
-		childContainer = (LinearLayout) row
-						.findViewById(R.id.childContainer);
+		childContainer = (LinearLayout) row.findViewById(R.id.childContainer);
 
 		// get the position of the item
 		ChatMessage chatMessageObj = getItem(position);
@@ -101,7 +98,6 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 						: R.drawable.bubble_b);
 
 		// set the right or left position based on boolean value
-		
 		parentContainer.setGravity(chatMessageObj.left ? Gravity.LEFT
 				: Gravity.RIGHT);
 		return row;
