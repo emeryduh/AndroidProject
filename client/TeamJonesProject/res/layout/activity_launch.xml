@@ -9,11 +9,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.comp313.LaunchActivity" >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/launch_logo_top"
+        android:src="@drawable/logo_home" />
+    
     <TextView
         android:id="@+id/tvLogoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView1"
         android:layout_marginTop="@dimen/launch_logotext_top"
         android:text="@string/launch_header_text"
         android:textColor="@color/white"
