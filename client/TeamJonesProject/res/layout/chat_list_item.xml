@@ -9,8 +9,8 @@
         android:id="@+id/childContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_layout_margintop"
         android:background="@drawable/bubble_b"
-        android:layout_marginTop="2dip"
         android:orientation="vertical" >
 
         <TextView
@@ -18,31 +18,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
+            android:paddingLeft="@dimen/list_tvname_paddingleft"
+            android:paddingRight="@dimen/list_tvname_paddingright"
             android:textColor="@color/username"
-            android:textSize="15sp"
+            android:textSize="@dimen/list_tvname_textsize"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/singleMessage"
+            android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
+            android:paddingLeft="@dimen/list_tvmessage_paddingleft"
+            android:paddingRight="@dimen/list_tvmessage_paddingright"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="18sp" />
+            android:textSize="@dimen/list_tvmessage_textsize" />
 
         <TextView
             android:id="@+id/tvDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:paddingRight="5dip"
-            android:paddingLeft="40dip"
+            android:paddingLeft="@dimen/list_tvdatetime_paddingleft"
+            android:paddingRight="@dimen/list_tvdatetime_paddingright"
             android:textColor="@color/date"
-            android:textSize="12sp" />
+            android:textSize="@dimen/list_tvdatetime_textsize" />
     </LinearLayout>
 
 </LinearLayout>

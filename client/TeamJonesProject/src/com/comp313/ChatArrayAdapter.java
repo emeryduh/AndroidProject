@@ -78,7 +78,7 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		ChatMessage chatMessageObj = getItem(position);
 
 		// get the chat text control instance from list item template
-		chatText = (TextView) row.findViewById(R.id.singleMessage);
+		chatText = (TextView) row.findViewById(R.id.tvMessage);
 		// set the text
 		chatText.setText(chatMessageObj.message);
 
