@@ -66,6 +66,6 @@
     <dimen name="chat_btnsend_height">35dp</dimen>
     <dimen name="chat_btnsend_marginright">5sp</dimen>
     <dimen name="chat_btnsend_padding_top">5dp</dimen>
-    <dimen name="chat_lstChatMessage_marginbottom">50dp</dimen>
+    <dimen name="chat_lstChatMessage_marginbottom">0dp</dimen>
 
 </resources>
