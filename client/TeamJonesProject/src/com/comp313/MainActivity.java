@@ -1,9 +1,12 @@
 package com.comp313;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.view.Window;
 
 import android.widget.TextView;
@@ -46,8 +49,25 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.btnEnter:
 			intent = new Intent(this, ChatActivity.class);
+			//getCellTowerInfo();
 			startActivity(intent);
 			break;
 		}
+	}
+	
+	// method to get cell tower info
+	private void getCellTowerInfo()
+	{
+		// provides access to information about the telephony services on the device.
+		TelephonyManager tm =(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		
+		// represents the cell location on a GSM phone.
+		GsmCellLocation cellLocation = (GsmCellLocation)tm.getCellLocation();
+
+		// returns cell id
+		System.out.println(cellLocation.getCid() % 0xffff);
+		
+		// returns cell location
+		System.out.println(cellLocation.getLac() % 0xffff);
 	}
 }
