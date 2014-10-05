@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_logotext_margintop"
+        android:layout_marginTop="@dimen/register_logotext_margintop"
         android:text="@string/launch_header_text"
         android:textColor="@color/white"
         android:textSize="@dimen/login_logotext_size" />
@@ -23,13 +23,13 @@
         android:id="@+id/linearLayout_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:layout_marginTop="@dimen/register_layoutbody_top"
         android:layout_below="@+id/tvLogoText"
+        android:layout_marginTop="@dimen/register_layoutbody_top"
         android:background="@color/white"
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/username_registration_field"
+            android:id="@+id/txtUserName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_username_height"
             android:layout_gravity="center_horizontal"
@@ -38,6 +38,7 @@
             android:layout_marginTop="@dimen/register_bodySpacing_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
+            android:text="vivek"
             android:hint="@string/register_username_text"
             android:inputType="text" >
 
@@ -45,7 +46,22 @@
         </EditText>
 
         <EditText
-            android:id="@+id/email_registration_field"
+            android:id="@+id/txtNickName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_nickname_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/register_nickname_marginleft"
+            android:layout_marginRight="@dimen/register_nickname_marginright"
+            android:layout_marginTop="@dimen/register_bodySpacing_top"
+            android:background="@drawable/edittextstyle"
+            android:text="vivek"
+            android:ems="10"
+            android:hint="@string/register_nickname_text"
+            android:inputType="text" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_username_height"
             android:layout_gravity="center_horizontal"
@@ -55,10 +71,11 @@
             android:background="@drawable/edittextstyle"
             android:ems="10"
             android:hint="@string/register_email_text"
+            android:text="vivek@gmail.com"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/password_registration_field"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_username_height"
             android:layout_gravity="center_horizontal"
@@ -67,11 +84,12 @@
             android:layout_marginTop="@dimen/register_textbox_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
+            android:text="12345678"
             android:hint="@string/register_password_text"
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/password_registration_check_field"
+            android:id="@+id/txtConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_username_height"
             android:layout_gravity="center_horizontal"
@@ -80,11 +98,12 @@
             android:layout_marginTop="@dimen/register_textbox_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
+            android:text="12345678"
             android:hint="@string/register_password_check_text"
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/submit_registration_button"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -92,6 +111,7 @@
             android:layout_marginLeft="@dimen/register_btnsignin_marginleft"
             android:layout_marginRight="@dimen/register_btnsignin_marginright"
             android:layout_marginTop="@dimen/register_textbox_top"
+            android:onClick="callIntent"
             android:background="@drawable/buttonshape"
             android:text="@string/register_submit_text" />
     </LinearLayout>

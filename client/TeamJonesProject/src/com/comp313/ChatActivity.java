@@ -3,6 +3,10 @@
  */
 package com.comp313;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,8 +118,12 @@ public class ChatActivity extends Activity {
 
 	// add the new text to adapter which push the message to list view
 	private boolean sendChatMessage() {
-		chatArrayAdapter.add(new ChatMessage(side, txtChatText.getText()
-				.toString(), "Vivek", "8.45 PM"));
+		// get the current date time
+		String timeStamp = new SimpleDateFormat("hh:mm aa")
+				.format(Calendar.getInstance().getTime());
+				
+		chatArrayAdapter.add(new Message(side,
+				txtChatText.getText().toString(), "Vivek", timeStamp));
 		txtChatText.setText("");
 
 		// change the bool value after text entered. this will be modified

@@ -29,7 +29,7 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/username_field"
+            android:id="@+id/txtUserName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_username_height"
             android:layout_gravity="center_horizontal"
@@ -45,7 +45,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/password_field"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_password_height"
             android:layout_gravity="center_horizontal"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content" >
 
             <CheckBox
-                android:id="@+id/rememberMeCheckBox"
+                android:id="@+id/cbRememberMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -27,7 +27,7 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 	private TextView tvDateTime;
 
 	// this list will hold chat messages
-	private List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
+	private List<Message> chatMessageList = new ArrayList<Message>();
 
 	// holds the container object from list item template
 	private LinearLayout parentContainer;
@@ -36,7 +36,7 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 	private LinearLayout childContainer;
 
 	// add new chat message to the list
-	public void add(ChatMessage object) {
+	public void add(Message object) {
 		chatMessageList.add(object);
 		super.add(object);
 	}
@@ -52,8 +52,8 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 	}
 
 	// get list item based on index
-	public ChatMessage getItem(int index) {
-		return (ChatMessage) this.chatMessageList.get(index);
+	public Message getItem(int index) {
+		return (Message) this.chatMessageList.get(index);
 	}
 
 	// this method will manipulate the left or right message template based on
@@ -75,30 +75,30 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		childContainer = (LinearLayout) row.findViewById(R.id.childContainer);
 
 		// get the position of the item
-		ChatMessage chatMessageObj = getItem(position);
+		Message chatMessageObj = getItem(position);
 
 		// get the chat text control instance from list item template
 		chatText = (TextView) row.findViewById(R.id.tvMessage);
 		// set the text
-		chatText.setText(chatMessageObj.message);
+		chatText.setText(chatMessageObj.MessageText);
 
 		// get the name text control instance from list item template
 		tvName = (TextView) row.findViewById(R.id.tvName);
 		// set the text
-		tvName.setText(chatMessageObj.name);
+		tvName.setText(chatMessageObj.User);
 
 		// get the date text control instance from list item template
 		tvDateTime = (TextView) row.findViewById(R.id.tvDateTime);
 		// set the text
-		tvDateTime.setText(chatMessageObj.dateTime);
+		tvDateTime.setText(chatMessageObj.Date);
 
 		// set the background bubble image based on boolean value
 		childContainer
-				.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_a
+				.setBackgroundResource(chatMessageObj.Left ? R.drawable.bubble_a
 						: R.drawable.bubble_b);
 
 		// set the right or left position based on boolean value
-		parentContainer.setGravity(chatMessageObj.left ? Gravity.LEFT
+		parentContainer.setGravity(chatMessageObj.Left ? Gravity.LEFT
 				: Gravity.RIGHT);
 		return row;
 	}

@@ -25,10 +25,10 @@ public class LoginActivity extends Activity {
 				"fonts/Roboto-Regular.ttf");
 
 		// gets the text view instance using id
-		TextView headerText = (TextView) findViewById(R.id.tvLogoText);
+		TextView tvHeader = (TextView) findViewById(R.id.tvLogoText);
 
 		// sets the font style to text view
-		headerText.setTypeface(type);
+		tvHeader.setTypeface(type);
 	}
 
 	// occurs when user clicks button

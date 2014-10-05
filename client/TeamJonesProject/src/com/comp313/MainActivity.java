@@ -26,10 +26,10 @@ public class MainActivity extends Activity {
 				"fonts/Roboto-Regular.ttf");
 
 		// gets the text view instance using id
-		TextView headerText = (TextView) findViewById(R.id.tvLogoText);
+		TextView tvHeader = (TextView) findViewById(R.id.tvLogoText);
 
 		// sets the font style to text view
-		headerText.setTypeface(type);
+		tvHeader.setTypeface(type);
 		
 		// gets the welcome text instance using id
 		TextView tvWelcomeText = (TextView) findViewById(R.id.tvUserName);

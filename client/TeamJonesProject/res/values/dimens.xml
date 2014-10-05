@@ -32,19 +32,22 @@
     <dimen name="register_bodySpacing_bottomMargins">18dp</dimen>
     <dimen name="register_bodySpacing_top">20dp</dimen>
     <dimen name="register_textbox_top">20dp</dimen>
-    <dimen name="register_logotext_margintop">30dp</dimen>
+    <dimen name="register_logotext_margintop">10dp</dimen>
     <dimen name="register_logotext_size">35sp</dimen>
     <dimen name="register_layoutbody_top">30dp</dimen>
     <dimen name="register_username_height">50dp</dimen>
     <dimen name="register_username_marginleft">10dp</dimen>
-    <dimen name="register_username_marginright">10dp</dimen>
+    <dimen name="register_username_marginright">10dp</dimen>    
+    <dimen name="register_nickname_height">50dp</dimen>
+    <dimen name="register_nickname_marginleft">10dp</dimen>
+    <dimen name="register_nickname_marginright">10dp</dimen>    
     <dimen name="register_email_height">50dp</dimen>
     <dimen name="register_email_marginleft">10dp</dimen>
     <dimen name="register_email_marginright">10dp</dimen>
     <dimen name="register_password_height">50dp</dimen>
     <dimen name="register_password_marginleft">10dp</dimen>
     <dimen name="register_password_marginright">10dp</dimen>
-    <dimen name="register_btnsignin_marginbottom">30dp</dimen>
+    <dimen name="register_btnsignin_marginbottom">20dp</dimen>
     <dimen name="register_btnsignin_marginleft">40dp</dimen>
     <dimen name="register_btnsignin_marginright">40dp</dimen>
 
