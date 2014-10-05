@@ -59,7 +59,7 @@ public class RegistrationActivity extends Activity {
 
 		// gets the font style to asset resource
 		Typeface type = Typeface.createFromAsset(getAssets(),
-				"fonts/Roboto-Regular.ttf");
+				"fonts/DEVROYE.ttf");
 
 		// gets the text view instance using id
 		TextView tvHeader = (TextView) findViewById(R.id.tvLogoText);
