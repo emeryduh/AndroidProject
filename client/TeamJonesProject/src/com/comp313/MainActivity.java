@@ -1,94 +1,53 @@
 package com.comp313;
 
-import java.util.Locale;
-
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.format.Time;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.Window;
+
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	// Used to hold our @id/btnSend component in main_activity
-	private Button btnSend;
-
-	// Used to hold our @id/chatArea component in main_activity
-	private TextView chatArea;
-
-	// Used to hold our @id/clientText component in main_activity
-	private EditText clientText;
-
-	// Used to hold our client's user name (default: Guest)
-	private String username = "Guest";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// hide the title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
-		setupComponents();
+		// gets the font style to asset resource
+		Typeface type = Typeface.createFromAsset(getAssets(),
+				"fonts/Roboto-Regular.ttf");
+
+		// gets the text view instance using id
+		TextView headerText = (TextView) findViewById(R.id.tvLogoText);
+
+		// sets the font style to text view
+		headerText.setTypeface(type);
+		
+		// gets the welcome text instance using id
+		TextView tvWelcomeText = (TextView) findViewById(R.id.tvUserName);
+
+		// sets the font style to text view
+		tvWelcomeText.setTypeface(type);
+		
+		// set the text
+		tvWelcomeText.setText("Welcome back Vivek!!");
+		
+		// setupComponents();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+	// occurs when user clicks button
+	public void callIntent(android.view.View view) {
+		Intent intent = null;
+		switch (view.getId()) {
+		case R.id.btnEnter:
+			intent = new Intent(this, ChatActivity.class);
+			startActivity(intent);
+			break;
 		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	// Setup all of our components within activity_main.xml
-	// Also setup all controllers and listeners for components
-	public void setupComponents() {
-
-		chatArea = (TextView) findViewById(R.id.chatArea);
-		clientText = (EditText) findViewById(R.id.clientText);
-		btnSend = (Button) findViewById(R.id.btnSend);
-
-		btnSend.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				String entryText = clientText.getText().toString();
-				if (entryText.length() > 0) {
-					// Get our time and format it
-					Time curTime = new Time();
-					curTime.setToNow();
-
-					String time = String.format(Locale.getDefault(),
-							"%02d:%02d", curTime.hour, curTime.minute);
-
-					// Send message to server, append to chat, clear text box
-					sendMessageToServer(entryText);
-					chatArea.append("\n[" + time + "] " + username + ": "
-							+ entryText);
-					clientText.setText("");
-				}
-			}
-
-		});
-	}
-
-	// Attempt to send message to chat server
-	public void sendMessageToServer(String entryText) {
-		// TODO: This needs to be populated with code to communicate with the
-		// server
 	}
 }

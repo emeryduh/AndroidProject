@@ -32,5 +32,9 @@
     <string name="launch_logo_text">Meet and connect new people</string>
     <string name="launch_btnsignup_text">Sign Up</string>
     <string name="launch_btnLoginp_text">Login</string>
-
+    
+      <!-- Main screen text -->
+    <string name="main_header_text">CENTCHAT</string>
+    <string name="main_logo_text">Meet and connect new people</string>        
+    <string name="main_btnenter_text">Enter</string>
 </resources>
