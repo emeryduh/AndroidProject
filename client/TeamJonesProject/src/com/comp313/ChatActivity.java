@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -233,10 +234,13 @@ public class ChatActivity extends Activity {
 	}
 
 	// method to parse the json messages and add to adapter
-	private void LoadMessagesToList(String message) throws JSONException {
+	private void LoadMessagesToList(String message) throws JSONException, ParseException {
 		// clear the adapter to add new messages
 		chatArrayAdapter.Clear();	
 
+		// holds to time stamp
+		String timeStamp="";
+		
 		// parse the json string 
 		JSONObject obj = new JSONObject(message);
 		
@@ -251,10 +255,32 @@ public class ChatActivity extends Activity {
 			else
 				side = true;
 			
+			// parse string to long
+			long time = Long.parseLong(arr.getJSONObject(i).getString("time"));
+			
+			// convert to date object
+			Date date = new Date(time);
+			
+			// calendar instance to check todays date
+			Calendar cal = Calendar.getInstance();			
+			cal.roll(Calendar.DATE, -1);
+			
+			// check if date is today
+			if (date.before(cal.getTime())) 
+			{
+				// if its previous day then show MMM:DD format
+				timeStamp = new SimpleDateFormat("MMM:DD").format(date.getTime());
+			} 
+			else 
+			{
+				// If its todays then show h:mm aa format
+				timeStamp = new SimpleDateFormat("h:mm aa").format(date.getTime());
+			}		
+			
 			// add message to adapter
 			chatArrayAdapter.add(new Message(side, arr.getJSONObject(i)
 					.getString("message"), arr.getJSONObject(i).getString(
-					"username"), ""));
+					"username"), timeStamp));
 		}
 	}
 
@@ -338,6 +364,9 @@ public class ChatActivity extends Activity {
 				try {
 					LoadMessagesToList(result.get(0).toString());
 				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
