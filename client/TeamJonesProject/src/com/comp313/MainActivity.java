@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.btnEnter:
 			intent = new Intent(this, ChatActivity.class);
+			intent.putExtra("roomid", "12345");
 			//getCellTowerInfo();
 			startActivity(intent);
 			break;

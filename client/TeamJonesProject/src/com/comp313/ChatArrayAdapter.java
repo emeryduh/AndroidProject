@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,12 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 	public Message getItem(int index) {
 		return (Message) this.chatMessageList.get(index);
 	}
+	
+	// method to clear the list
+	public void Clear()
+	{
+		chatMessageList.clear();
+	}
 
 	// this method will manipulate the left or right message template based on
 	// boolean value
@@ -86,6 +93,12 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		tvName = (TextView) row.findViewById(R.id.tvName);
 		// set the text
 		tvName.setText(chatMessageObj.User);
+		
+		// change the color name based on user name
+		if(!chatMessageObj.Left)
+			tvName.setTextColor(Color.parseColor("#26A65B"));
+		else
+			tvName.setTextColor(Color.parseColor("#8e44ad"));
 
 		// get the date text control instance from list item template
 		tvDateTime = (TextView) row.findViewById(R.id.tvDateTime);
