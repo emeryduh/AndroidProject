@@ -67,19 +67,19 @@ public class RegistrationActivity extends Activity {
 		// sets the font style to text view
 		tvHeader.setTypeface(type);
 
-		// gets the instance of user name
+		// gets the instance of user name edit text
 		txtUserName = (EditText) findViewById(R.id.txtUserName);
 
-		// gets the instance of nick name
+		// gets the instance of nick name edit text
 		txtNickName = (EditText) findViewById(R.id.txtNickName);
 
-		// gets the instance of email
+		// gets the instance of email edit text
 		txtEmail = (EditText) findViewById(R.id.txtEmail);
 
-		// gets the instance of password
+		// gets the instance of password edit text
 		txtPassword = (EditText) findViewById(R.id.txtPassword);
 
-		// gets the instance of confirm password
+		// gets the instance of confirm password edit text
 		txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
 	}
 
@@ -100,7 +100,7 @@ public class RegistrationActivity extends Activity {
 	private String registerUser() throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Util.registerURL);
+		HttpPost post = new HttpPost(Utility.registerURL);
 
 		// add header
 		post.setHeader("User-Agent", USER_AGENT);
@@ -119,7 +119,7 @@ public class RegistrationActivity extends Activity {
 
 		HttpResponse response = client.execute(post);
 		System.out.println("\nSending 'POST' request to URL : "
-				+ Util.registerURL);
+				+ Utility.registerURL);
 		System.out.println("Post parameters : " + post.getEntity());
 		System.out.println("Response Code : "
 				+ response.getStatusLine().getStatusCode());
