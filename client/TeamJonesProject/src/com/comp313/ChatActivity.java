@@ -27,6 +27,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +92,7 @@ public class ChatActivity extends Activity {
 
 	// instance for timer
 	Timer timer;
-	
+
 	// the TimerTask class represents a task to run at a specified time
 	TimerTask timerTask;
 
@@ -141,7 +142,8 @@ public class ChatActivity extends Activity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if ((event.getAction() == KeyEvent.ACTION_DOWN)
 						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-					return sendChatMessage();
+					task = new ChatActivityTask();
+					task.execute(new String[] { "POST" });					
 				}
 				return false;
 			}
@@ -161,9 +163,6 @@ public class ChatActivity extends Activity {
 		// grid will always scroll to the bottom to show new items.
 		lstChatMessages
 				.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-
-		// set the array adapter to listview
-		// lstChatMessages.setAdapter(chatArrayAdapter);
 
 		// to scroll the list view to bottom on data change
 		chatArrayAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -204,8 +203,8 @@ public class ChatActivity extends Activity {
 
 		// schedule the timer, after the first 5000ms the TimerTask will run
 		// every 5000ms
-		timer.schedule(timerTask, 5000, 5000); 
-	}	
+		timer.schedule(timerTask, 5000, 5000);
+	}
 
 	// execute the timer task
 	public void initializeTimerTask() {
@@ -228,55 +227,56 @@ public class ChatActivity extends Activity {
 	private void callGetMessages() {
 		// create new instance to chat activity class
 		task = new ChatActivityTask();
-		
+
 		// start the task
 		task.execute(new String[] { "GET" });
 	}
 
 	// method to parse the json messages and add to adapter
-	private void LoadMessagesToList(String message) throws JSONException, ParseException {
+	private void LoadMessagesToList(String message) throws JSONException,
+			ParseException {
 		// clear the adapter to add new messages
-		chatArrayAdapter.Clear();	
+		chatArrayAdapter.Clear();
 
 		// holds to time stamp
-		String timeStamp="";
-		
-		// parse the json string 
+		String timeStamp = "";
+
+		// parse the json string
 		JSONObject obj = new JSONObject(message);
-		
+
 		// get the json object using object name
 		JSONArray arr = obj.getJSONArray("messages");
-		
+
 		// loop the array
 		for (int i = 0; i < arr.length(); i++) {
-			// id user name is same then show the bubble to right else show to right  
+			// id user name is same then show the bubble to right else show to
+			// right
 			if (arr.getJSONObject(i).getString("username").equals("vivek"))
 				side = false;
 			else
 				side = true;
-			
+
 			// parse string to long
 			long time = Long.parseLong(arr.getJSONObject(i).getString("time"));
-			
+
 			// convert to date object
 			Date date = new Date(time);
-			
+
 			// calendar instance to check todays date
-			Calendar cal = Calendar.getInstance();			
+			Calendar cal = Calendar.getInstance();
 			cal.roll(Calendar.DATE, -1);
-			
+
 			// check if date is today
-			if (date.before(cal.getTime())) 
-			{
+			if (date.before(cal.getTime())) {
 				// if its previous day then show MMM:DD format
-				timeStamp = new SimpleDateFormat("MMM:DD").format(date.getTime());
-			} 
-			else 
-			{
+				timeStamp = new SimpleDateFormat("MMM:DD").format(date
+						.getTime());
+			} else {
 				// If its todays then show h:mm aa format
-				timeStamp = new SimpleDateFormat("h:mm aa").format(date.getTime());
-			}		
-			
+				timeStamp = new SimpleDateFormat("h:mm aa").format(date
+						.getTime());
+			}
+
 			// add message to adapter
 			chatArrayAdapter.add(new Message(side, arr.getJSONObject(i)
 					.getString("message"), arr.getJSONObject(i).getString(
@@ -299,7 +299,8 @@ public class ChatActivity extends Activity {
 		return true;
 	}
 
-	// class to execute the asynchronous task. Since, we cannot the run the http post and get in UI thread. 
+	// class to execute the asynchronous task. Since, we cannot the run the http
+	// post and get in UI thread.
 	public class ChatActivityTask extends
 			AsyncTask<String, Void, ArrayList<String>> {
 
@@ -316,14 +317,15 @@ public class ChatActivity extends Activity {
 		protected ArrayList<String> doInBackground(String... params) {
 			String strResponse = "";
 			ArrayList<String> lstResponse = null;
-			
+
 			// check whether is post or get message based on given parameter
 			if (params[0] == "POST") {
 				try {
 					// call the post request
 					strResponse = PushMessage(Utility.postMesssageURL);
-					
-					// add the response to list to identify get or post operation in onPostExecute
+
+					// add the response to list to identify get or post
+					// operation in onPostExecute
 					lstResponse = new ArrayList<String>();
 					lstResponse.add(strResponse);
 					lstResponse.add("POST");
@@ -340,8 +342,9 @@ public class ChatActivity extends Activity {
 			} else {
 				// call the get method
 				strResponse = GetMessages(Utility.getMesssagesURL);
-				
-				// add the response to list to identify get or post operation in onPostExecute
+
+				// add the response to list to identify get or post operation in
+				// onPostExecute
 				lstResponse = new ArrayList<String>();
 				lstResponse.add(strResponse);
 				lstResponse.add("GET");
@@ -356,11 +359,18 @@ public class ChatActivity extends Activity {
 			/**
 			 * update ui thread and remove dialog
 			 */
-			
+
 			// execute methods based on operation
-			if (result.get(1) == "POST")
-				sendChatMessage();
-			else {
+			if (result.get(1) == "POST") {
+				// get the current date time
+				String timeStamp = new SimpleDateFormat("hh:mm aa")
+						.format(Calendar.getInstance().getTime());
+
+				chatArrayAdapter.add(new Message(false, txtChatText.getText()
+						.toString(), "vivek", timeStamp));
+				
+				txtChatText.setText("");
+			} else {
 				try {
 					LoadMessagesToList(result.get(0).toString());
 				} catch (JSONException e) {
@@ -377,10 +387,10 @@ public class ChatActivity extends Activity {
 
 		// method to get the messages
 		public String GetMessages(String url) {
-			
+
 			// input stream object instance
 			InputStream inputStream = null;
-			
+
 			// holds the response
 			String result = "";
 			try {
@@ -388,7 +398,8 @@ public class ChatActivity extends Activity {
 				// create HttpClient
 				HttpClient httpclient = new DefaultHttpClient();
 
-				// make GET request to the given URL. Will change the user id after registration is completed 
+				// make GET request to the given URL. Will change the user id
+				// after registration is completed
 				HttpResponse httpResponse = httpclient.execute(new HttpGet(url
 						+ "/Vivek/" + strRoomId));
 
@@ -415,35 +426,43 @@ public class ChatActivity extends Activity {
 
 			// input stream object instance
 			InputStream inputStream = null;
-			
+
 			// holds the response
 			String result = "";
-			
+
 			// create HttpClient
 			HttpClient client = new DefaultHttpClient();
-			
+
 			// make POST request to the given URL.
-			HttpPost post = new HttpPost(url);
+			HttpPost post = new HttpPost(url + "/vivek/" + strRoomId);
 
-			// add header
-			// post.setHeader("User-Agent", USER_AGENT);
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.accumulate("userId", "Vivek");
-			jsonObject.accumulate("locationId", strRoomId);
-			jsonObject.accumulate("body", txtChatText.getText().toString());
+			// create object for name value pairs
+			List<NameValuePair> lstParams = new ArrayList<NameValuePair>();
 
-			String json = "";
-			json = jsonObject.toString();
+			// create object for json object
+			JSONObject oMessage = new JSONObject();
 
-			StringEntity se = new StringEntity(json);
+			// add message to object
+			oMessage.accumulate("message", txtChatText.getText().toString());
 
-			post.setEntity(se);
+			// add json object to list
+			lstParams.add(new BasicNameValuePair("body", oMessage.toString()));
 
-			post.setHeader("Accept", "application/json");
+			// set the header
 			post.setHeader("Content-type", "application/json");
 
+			// set the http entity
+			post.setEntity(new UrlEncodedFormEntity(lstParams));
+
+			// set entity for json object
+			StringEntity entity = new StringEntity(oMessage.toString(),
+					HTTP.UTF_8);
+			post.setEntity(entity);
+
+			// post the message
 			HttpResponse response = client.execute(post);
 
+			// get the response
 			inputStream = response.getEntity().getContent();
 
 			// convert input stream to string
@@ -452,6 +471,7 @@ public class ChatActivity extends Activity {
 			else
 				result = "Did not work!";
 
+			// return the response
 			return result.toString();
 		}
 

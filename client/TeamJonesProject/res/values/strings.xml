@@ -9,7 +9,7 @@
     <!-- Chat screen text -->
     <string name="chat_btnSend_text">Send</string>
     <string name="chat_chatHeader_text">Welcome to CentChat!</string>
-    <string name="chat_entryHint_text">Type a message here.</string>
+    <string name="chat_entryHint_text">Type a message here..</string>
     <string name="chat_activity_title">CentChat</string>
 
     <!-- Login screen text -->
