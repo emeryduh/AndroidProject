@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
+	private EditText idUsername;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +29,8 @@ public class LoginActivity extends Activity {
 
 		// sets the font style to text view
 		tvHeader.setTypeface(type);
+		
+		idUsername = (EditText)findViewById(R.id.txtUsername);
 	}
 
 	// occurs when user clicks button
@@ -34,6 +39,8 @@ public class LoginActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.btnLogin:
 			intent = new Intent(this, ChatActivity.class);
+			intent.putExtra("username", idUsername.getText().toString());
+			intent.putExtra("roomid", "12345");
 			startActivity(intent);
 			break;
 		}

@@ -29,7 +29,7 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/txtUserName"
+            android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_username_height"
             android:layout_gravity="center_horizontal"
