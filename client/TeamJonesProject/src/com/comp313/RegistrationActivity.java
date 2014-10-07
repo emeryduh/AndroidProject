@@ -88,11 +88,43 @@ public class RegistrationActivity extends Activity {
 		Intent intent = null;
 		switch (view.getId()) {
 		case R.id.btnSubmit:
-			intent = new Intent(this, ChatActivity.class);
+			
+			//Parse fields to strings for validation
+			
+			final String username = txtUserName.getText().toString();
+			final String nickname = txtNickName.getText().toString();
+			final String email = txtEmail.getText().toString();
+			final String password = txtPassword.getText().toString();
+			final String confirmPassword = txtConfirmPassword.getText().toString();
+			
+			//Popup error message if not valid
+			if(!validateUsername(username))
+				txtUserName.setError("Username has to be longer than 6 characters!");
+			if(!validateNickname(nickname))
+				txtNickName.setError("Nickname has to be longer than 6 characters!");
+			if(!validateEmail(email))
+				txtEmail.setError("Invalid Email");
+			if(!validatePassword(password))
+				txtPassword.setError("Password has to be longer than 6 characters!");
+			if(!validateConfirmPassword(confirmPassword))
+				txtConfirmPassword.setError("Confirmed Password has to be longer than 6 characters!");
+			
+			if(validateUsername(username) 
+				&& validateNickname(nickname) 
+				&& validateEmail(email) 
+				&& validatePassword(password) 
+				&& validateConfirmPassword(confirmPassword))
+			{
+				intent = new Intent(this, LoginActivity.class);
+				startActivity(intent);
+			}
+			
+			
 			
 		    // String strUserId = registerUser();
 		
-			// startActivity(intent);
+			
+			
 			break;
 		}
 	}
@@ -134,4 +166,49 @@ public class RegistrationActivity extends Activity {
 		}
 		return strUserId;
 	}
+	
+	private boolean validateUsername(String txtUserName)
+	{
+		if(txtUserName != null && txtUserName.length() > 6)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean validateNickname(String txtNickName)
+	{
+		if(txtNickName != null && txtNickName.length() > 6)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean validateEmail(String txtEmail)
+	{
+		if(txtEmail != null && android.util.Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean validatePassword(String txtPassword)
+	{
+		if(txtPassword != null && txtPassword.length()>6)
+		{
+			return true;
+		}
+		return false;
+	}
+	private boolean validateConfirmPassword(String txtConfirmPassword)
+	{
+		if(txtConfirmPassword != null && txtPassword.length()>6)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 }
