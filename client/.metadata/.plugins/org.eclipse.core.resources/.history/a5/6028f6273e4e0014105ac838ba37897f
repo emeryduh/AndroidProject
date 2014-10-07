@@ -91,28 +91,41 @@ public class RegistrationActivity extends Activity {
 		case R.id.btnSubmit:
 
 			// Parse fields to strings for validation
+
 			final String username = txtUserName.getText().toString();
 			final String nickname = txtNickName.getText().toString();
 			final String email = txtEmail.getText().toString();
 			final String password = txtPassword.getText().toString();
-			final String confirmPassword = txtConfirmPassword.getText().toString();
-			
-			// If all fields pass validation
+			final String confirmPassword = txtConfirmPassword.getText()
+					.toString();
+
+			// Popup error message if not valid
+			/*//Migrated into their methods
+			if (!validateUsername(username))
+				txtUserName.setError("Username has to be longer than 6 characters!");
+			if (!validateNickname(nickname))
+				txtNickName.setError("Nickname has to be longer than 6 characters!");
+			if (!validateEmail(email))
+				txtEmail.setError("Invalid Email");
+			if (!validatePassword(password))
+				txtPassword.setError("Password has to be longer than 6 characters!");
+			if (!validateConfirmPassword(confirmPassword))
+				txtConfirmPassword.setError("Confirmed Password has to be longer than 6 characters!");
+				*/
+
 			if (validateUsername(username) && validateNickname(nickname)
 					&& validateEmail(email) && validatePassword(password)
 					&& validateConfirmPassword(confirmPassword)) {
-				// Transition to our login activity
 				startActivity(new Intent(this, LoginActivity.class));
 			}
 
-			// String strUserId = registerUser(username, nickname, email, password);
+			// String strUserId = registerUser();
 
 			break;
 		}
 	}
 
-	private String registerUser(String username, String nickname, String email, String password)
-			throws ClientProtocolException, IOException {
+	private String registerUser() throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Utility.registerURL);
@@ -121,10 +134,14 @@ public class RegistrationActivity extends Activity {
 		post.setHeader("User-Agent", USER_AGENT);
 
 		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("username", username));
-		urlParameters.add(new BasicNameValuePair("nickname", nickname));
-		urlParameters.add(new BasicNameValuePair("email", email));
-		urlParameters.add(new BasicNameValuePair("password", password));
+		urlParameters.add(new BasicNameValuePair("username", txtUserName
+				.getText().toString()));
+		urlParameters.add(new BasicNameValuePair("nickname", txtNickName
+				.getText().toString()));
+		urlParameters.add(new BasicNameValuePair("email", txtEmail.getText()
+				.toString()));
+		urlParameters.add(new BasicNameValuePair("password", txtPassword
+				.getText().toString()));
 
 		post.setEntity(new UrlEncodedFormEntity(urlParameters));
 

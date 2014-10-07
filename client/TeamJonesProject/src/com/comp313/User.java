@@ -9,9 +9,9 @@ package com.comp313;
  */
 public class User {
 
-	private String UserId;
-	private String NickName;
-	private String Email;
+	private String userId;
+	private String nickName;
+	private String email;
 
 	/**
 	 * @param userId
@@ -19,30 +19,30 @@ public class User {
 	 * @param emailAddr
 	 */
 	public User(String userId, String nickName, String emailAddr) {
-		this.UserId = userId;
-		this.NickName = nickName;
-		this.Email = emailAddr;
+		this.userId = userId;
+		this.nickName = nickName;
+		this.email = emailAddr;
 	}
 
 	/**
 	 * @return the userId
 	 */
 	public String getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	/**
 	 * @return the nickName
 	 */
 	public String getNickName() {
-		return NickName;
+		return nickName;
 	}
 
 	/**
 	 * @return the emailAddr
 	 */
 	public String getEmailAddr() {
-		return Email;
+		return email;
 	}
 
 }
