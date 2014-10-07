@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
 		tvWelcomeText.setTypeface(type);
 		
 		// set the text
+		//TODO: This will need to be modified to later acquire the username
 		tvWelcomeText.setText("Welcome back Vivek!!");
 		
 		// setupComponents();
@@ -49,6 +50,7 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.btnEnter:
 			intent = new Intent(this, ChatActivity.class);
+			intent.putExtra("username", "Vivek");
 			intent.putExtra("roomid", "12345");
 			//getCellTowerInfo();
 			startActivity(intent);

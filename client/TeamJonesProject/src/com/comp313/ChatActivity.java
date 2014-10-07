@@ -79,13 +79,15 @@ public class ChatActivity extends Activity {
 	private boolean side = false;
 
 	// holds the room id
-	public String strRoomId;
+	private String strRoomId;
+	
+	private String strUsername;
 
 	// holds the push message response
-	public String strPushMessage = "";
+	private String strPushMessage = "";
 
 	// holds the get message response
-	public String strGetMessage = "";
+	private String strGetMessage = "";
 
 	// instance id for chat activity task
 	ChatActivityTask task;
@@ -115,16 +117,16 @@ public class ChatActivity extends Activity {
 		Intent i = getIntent();
 
 		// get the extras from intent
-		Bundle extras = getIntent().getExtras();
+		Bundle extras = i.getExtras();
 
-		// get the room id using id
+		// get extras from intent and assign them
 		strRoomId = extras.getString("roomid");
+		strUsername = extras.getString("username");
 
-		// find and assign send button control instance
+		// acquire our layout controls
 		btnSend = (Button) findViewById(R.id.btnSend);
-
-		// find and assign list control control instance
 		lstChatMessages = (ListView) findViewById(R.id.lstChatMessages);
+		txtChatText = (EditText) findViewById(R.id.txtChatText);
 
 		// get the list view item style layout and assign to array adapter
 		chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
@@ -132,9 +134,6 @@ public class ChatActivity extends Activity {
 
 		// set the adapter to list view control
 		lstChatMessages.setAdapter(chatArrayAdapter);
-
-		// find and assign chat text control instance
-		txtChatText = (EditText) findViewById(R.id.txtChatText);
 
 		// hook the event to chat text control. this event will capture enter
 		// button click
@@ -249,12 +248,13 @@ public class ChatActivity extends Activity {
 
 		// loop the array
 		for (int i = 0; i < arr.length(); i++) {
-			// id user name is same then show the bubble to right else show to
-			// right
-			if (arr.getJSONObject(i).getString("username").equals("vivek"))
-				side = false;
-			else
+			// This will determine which side a message goes on
+			// Our Messages = Left side
+			// All other message = Right side
+			if (arr.getJSONObject(i).getString("username").equals(strUsername))
 				side = true;
+			else
+				side = false;
 
 			// parse string to long
 			long time = Long.parseLong(arr.getJSONObject(i).getString("time"));
@@ -276,14 +276,16 @@ public class ChatActivity extends Activity {
 				timeStamp = new SimpleDateFormat("h:mm aa").format(date
 						.getTime());
 			}
-
+			
 			// add message to adapter
 			chatArrayAdapter.add(new Message(side, arr.getJSONObject(i)
 					.getString("message"), arr.getJSONObject(i).getString(
 					"username"), timeStamp));
 		}
 	}
-
+	
+	/* This is no longer used, refer to ChatActivityTask.class
+	 * 
 	// add the new text to adapter which push the message to list view
 	private boolean sendChatMessage() {
 		// get the current date time
@@ -291,13 +293,14 @@ public class ChatActivity extends Activity {
 				.getInstance().getTime());
 
 		chatArrayAdapter.add(new Message(side,
-				txtChatText.getText().toString(), "Vivek", timeStamp));
+				txtChatText.getText().toString(), strUsername, timeStamp));
 		txtChatText.setText("");
 
 		// change the bool value after text entered. this will be modified
 		side = !side;
 		return true;
 	}
+	*/
 
 	// class to execute the asynchronous task. Since, we cannot the run the http
 	// post and get in UI thread.
@@ -306,7 +309,6 @@ public class ChatActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			/**
 			 * show dialog
 			 */
@@ -330,13 +332,10 @@ public class ChatActivity extends Activity {
 					lstResponse.add(strResponse);
 					lstResponse.add("POST");
 				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
@@ -367,7 +366,7 @@ public class ChatActivity extends Activity {
 						.format(Calendar.getInstance().getTime());
 
 				chatArrayAdapter.add(new Message(false, txtChatText.getText()
-						.toString(), "vivek", timeStamp));
+						.toString(), strUsername, timeStamp));
 				
 				txtChatText.setText("");
 			} else {
@@ -401,7 +400,7 @@ public class ChatActivity extends Activity {
 				// make GET request to the given URL. Will change the user id
 				// after registration is completed
 				HttpResponse httpResponse = httpclient.execute(new HttpGet(url
-						+ "/Vivek/" + strRoomId));
+						+ "/" + strUsername + "/" + strRoomId));
 
 				// receive response as inputStream
 				inputStream = httpResponse.getEntity().getContent();
@@ -434,7 +433,7 @@ public class ChatActivity extends Activity {
 			HttpClient client = new DefaultHttpClient();
 
 			// make POST request to the given URL.
-			HttpPost post = new HttpPost(url + "/vivek/" + strRoomId);
+			HttpPost post = new HttpPost(url + "/"+ strUsername + "/" + strRoomId);
 
 			// create object for name value pairs
 			List<NameValuePair> lstParams = new ArrayList<NameValuePair>();
