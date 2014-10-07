@@ -251,7 +251,7 @@ public class ChatActivity extends Activity {
 			// This will determine which side a message goes on
 			// Our Messages = Left side
 			// All other message = Right side
-			if (arr.getJSONObject(i).getString("username").equals(strUsername))
+			if (arr.getJSONObject(i).getString("username").equalsIgnoreCase(strUsername))
 				side = true;
 			else
 				side = false;
