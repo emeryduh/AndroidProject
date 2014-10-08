@@ -81,6 +81,7 @@ public class ChatActivity extends Activity {
 	// holds the room id
 	private String strRoomId;
 	
+	// holds the user name
 	private String strUsername;
 
 	// holds the push message response
