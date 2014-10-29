@@ -38,7 +38,7 @@
             android:layout_marginTop="@dimen/register_bodySpacing_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
-            android:text="vivek"
+            android:text=""
             android:hint="@string/register_username_text"
             android:inputType="text" >
 
@@ -54,7 +54,7 @@
             android:layout_marginRight="@dimen/register_nickname_marginright"
             android:layout_marginTop="@dimen/register_bodySpacing_top"
             android:background="@drawable/edittextstyle"
-            android:text="vivek"
+            android:text=""
             android:ems="10"
             android:hint="@string/register_nickname_text"
             android:inputType="text" >
@@ -71,7 +71,7 @@
             android:background="@drawable/edittextstyle"
             android:ems="10"
             android:hint="@string/register_email_text"
-            android:text="vivek@gmail.com"
+            android:text=""
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -84,7 +84,7 @@
             android:layout_marginTop="@dimen/register_textbox_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
-            android:text="12345678"
+            android:text=""
             android:hint="@string/register_password_text"
             android:inputType="textPassword" />
 
@@ -98,7 +98,7 @@
             android:layout_marginTop="@dimen/register_textbox_top"
             android:background="@drawable/edittextstyle"
             android:ems="10"
-            android:text="12345678"
+            android:text=""
             android:hint="@string/register_password_check_text"
             android:inputType="textPassword" />
 

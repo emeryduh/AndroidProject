@@ -2,6 +2,7 @@ package com.comp313;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -13,13 +14,18 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -27,11 +33,9 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegistrationActivity extends Activity {
-
-	// holds the return user id
-	private String strUserId;
 
 	// holds the error response
 	private String strResponse;
@@ -49,12 +53,10 @@ public class RegistrationActivity extends Activity {
 
 		// hide the title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		/*
-		 * StrictMode.ThreadPolicy policy = new
-		 * StrictMode.ThreadPolicy.Builder() .permitAll().build();
-		 * StrictMode.setThreadPolicy(policy);
-		 */
+		
+		StrictMode.ThreadPolicy policy = new
+		StrictMode.ThreadPolicy.Builder() .permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 
 		setContentView(R.layout.activity_registration);
 
@@ -85,8 +87,8 @@ public class RegistrationActivity extends Activity {
 	}
 
 	// occurs when user clicks button
-	private void callIntent(android.view.View view) {
-		
+	public void callIntent(android.view.View view) {
+
 		switch (view.getId()) {
 		case R.id.btnSubmit:
 
@@ -95,71 +97,124 @@ public class RegistrationActivity extends Activity {
 			final String nickname = txtNickName.getText().toString();
 			final String email = txtEmail.getText().toString();
 			final String password = txtPassword.getText().toString();
-			final String confirmPassword = txtConfirmPassword.getText().toString();
-			
+			final String confirmPassword = txtConfirmPassword.getText()
+					.toString();
+
 			// If all fields pass validation
 			if (validateUsername(username) && validateNickname(nickname)
 					&& validateEmail(email) && validatePassword(password)
 					&& validateConfirmPassword(confirmPassword)) {
 				// Transition to our login activity
-				startActivity(new Intent(this, LoginActivity.class));
+				try {
+					String userHash = registerUser(username, nickname, email,
+							password);
+					startActivity(new Intent(this, LoginActivity.class));
+				} catch (ClientProtocolException e) {
+					Toast.makeText(getBaseContext(), "ClientProtocolException",
+							Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				} catch (IOException e) {
+					Toast.makeText(getBaseContext(), "IOException",
+							Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				} catch (JSONException e) {
+					Toast.makeText(getBaseContext(), "JSONException",
+							Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
 			}
-
-			// String strUserId = registerUser(username, nickname, email, password);
-
 			break;
 		}
 	}
 
-	private String registerUser(String username, String nickname, String email, String password)
-			throws ClientProtocolException, IOException {
-
+	private String registerUser(String username, String nickname, String email,
+			String password) throws ClientProtocolException, IOException, JSONException {
+		
+		// Setup out HTTP client and POST url
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Utility.registerURL);
 
-		// add header
-		post.setHeader("User-Agent", USER_AGENT);
+		// set the header of our POST
+		post.setHeader("Content-type", "application/json");
 
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("username", username));
-		urlParameters.add(new BasicNameValuePair("nickname", nickname));
-		urlParameters.add(new BasicNameValuePair("email", email));
-		urlParameters.add(new BasicNameValuePair("password", password));
+		// create object for json object
+		JSONObject registerJSON = new JSONObject();
 
-		post.setEntity(new UrlEncodedFormEntity(urlParameters));
+		// populate our JSON object
+		registerJSON.accumulate("email", email);
+		registerJSON.accumulate("username", username);
+		registerJSON.accumulate("password", password);
 
+		// create object for name value pairs
+		List<NameValuePair> regParams = new ArrayList<NameValuePair>();
+		regParams.add(new BasicNameValuePair("body", registerJSON.toString()));
+
+		// Set the HTTP Entity
+		post.setEntity(new UrlEncodedFormEntity(regParams));
+
+		// Set the entity for our JSON object
+		StringEntity entityJSON = new StringEntity(registerJSON.toString(),
+				HTTP.UTF_8);
+		post.setEntity(entityJSON);
+
+		// POST the message
 		HttpResponse response = client.execute(post);
+
+		// Show our response
 		System.out.println("\nSending 'POST' request to URL : "
 				+ Utility.registerURL);
 		System.out.println("Post parameters : " + post.getEntity());
 		System.out.println("Response Code : "
 				+ response.getStatusLine().getStatusCode());
 
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response
-				.getEntity().getContent()));
+		// Get the response
+		// input stream object instance
+		InputStream inputStream = response.getEntity().getContent();
+		String result = "";
 
-		StringBuffer result = new StringBuffer();
-		String line = "";
-		while ((line = rd.readLine()) != null) {
-			result.append(line);
-		}
-		return strUserId;
+		// Convert InputStream to String
+		if (inputStream != null)
+			result = convertInputStreamToString(inputStream);
+		else
+			result = "No result found.";
+
+		// Print our result
+		System.out.println(result);
+
+		return result;
 	}
-	
+
+	// method to convert the stream to string
+	private String convertInputStreamToString(InputStream inputStream)
+			throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while ((line = bufferedReader.readLine()) != null)
+			result += line;
+
+		inputStream.close();
+		return result;
+
+	}
+
 	private boolean validateUsername(String txtUserName) {
-		if (txtUserName != null && txtUserName.length() > 6) {
+		if (txtUserName != null && txtUserName.length() > 3) {
 			return true;
 		} else {
-			this.txtUserName.setError("Username has to be longer than 6 characters!");
+			this.txtUserName
+					.setError("Username has to be longer than 3 characters!");
 			return false;
 		}
 	}
 
 	private boolean validateNickname(String txtNickName) {
-		if (txtNickName != null && txtNickName.length() > 6) {
+		if (txtNickName != null && txtNickName.length() > 3) {
 			return true;
 		} else {
-			this.txtNickName.setError("Nickname has to be longer than 6 characters!");
+			this.txtNickName
+					.setError("Nickname has to be longer than 3 characters!");
 			return false;
 		}
 	}
@@ -179,7 +234,8 @@ public class RegistrationActivity extends Activity {
 		if (txtPassword != null && txtPassword.length() > 6) {
 			return true;
 		} else {
-			this.txtPassword.setError("Password has to be longer than 6 characters!");
+			this.txtPassword
+					.setError("Password has to be longer than 6 characters!");
 			return false;
 		}
 	}
@@ -188,7 +244,8 @@ public class RegistrationActivity extends Activity {
 		if (txtConfirmPassword != null && txtPassword.length() > 6) {
 			return true;
 		} else {
-			this.txtConfirmPassword.setError("Confirmed Password has to be longer than 6 characters!");
+			this.txtConfirmPassword
+					.setError("Confirmed Password has to be longer than 6 characters!");
 			return false;
 		}
 	}
