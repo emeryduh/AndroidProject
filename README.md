@@ -1,3 +1,11 @@
+CentChat
+===
+This is the repository for the client-side of CentChat.
+
+Below is the server-side of CentChat
+
+
+
 GeoChat
 ===
 

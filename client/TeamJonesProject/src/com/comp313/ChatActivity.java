@@ -81,6 +81,7 @@ public class ChatActivity extends Activity {
 	// holds the room id
 	private String strRoomId;
 	
+	// holds the user name
 	private String strUsername;
 
 	// holds the push message response
@@ -252,9 +253,9 @@ public class ChatActivity extends Activity {
 			// Our Messages = Left side
 			// All other message = Right side
 			if (arr.getJSONObject(i).getString("username").equalsIgnoreCase(strUsername))
-				side = true;
-			else
 				side = false;
+			else
+				side = true;
 
 			// parse string to long
 			long time = Long.parseLong(arr.getJSONObject(i).getString("time"));
