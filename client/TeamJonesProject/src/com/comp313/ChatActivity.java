@@ -122,7 +122,7 @@ public class ChatActivity extends Activity {
 
 		// get extras from intent and assign them
 		strRoomId = extras.getString("roomid");
-		strUsername = extras.getString("username");
+		strUsername = extras.getString("userId");
 
 		// acquire our layout controls
 		btnSend = (Button) findViewById(R.id.btnSend);

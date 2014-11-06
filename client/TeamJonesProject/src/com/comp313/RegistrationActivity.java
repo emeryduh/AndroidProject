@@ -23,11 +23,15 @@ import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -47,15 +51,18 @@ public class RegistrationActivity extends Activity {
 	private EditText txtUserName, txtNickName, txtEmail, txtPassword,
 			txtConfirmPassword;
 
+	// instance for registration activity task
+	RegistrationActivityTask task;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// hide the title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		StrictMode.ThreadPolicy policy = new
-		StrictMode.ThreadPolicy.Builder() .permitAll().build();
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
 		setContentView(R.layout.activity_registration);
@@ -86,6 +93,32 @@ public class RegistrationActivity extends Activity {
 		txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
 	}
 
+	// method to navigate to next activity
+	public void navigate(String strResponse, int code) {
+		switch (code) {
+		case 200:
+			showToast(strResponse);
+			break;
+		case 400:
+			showToast(strResponse);
+			break;
+		case 500:
+			showToast("Server cannot be reached");
+			break;
+		default:
+			startActivity(new Intent(this, LoginActivity.class));
+			break;
+		}
+	}
+
+	// show toast
+	public void showToast(String text) {
+		Context context = getApplicationContext();
+		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+		toast.show();
+	}
+
 	// occurs when user clicks button
 	public void callIntent(android.view.View view) {
 
@@ -99,104 +132,149 @@ public class RegistrationActivity extends Activity {
 			final String password = txtPassword.getText().toString();
 			final String confirmPassword = txtConfirmPassword.getText()
 					.toString();
-
 			// If all fields pass validation
 			if (validateUsername(username) && validateNickname(nickname)
 					&& validateEmail(email) && validatePassword(password)
 					&& validateConfirmPassword(confirmPassword)) {
-				// Transition to our login activity
-				try {
-					String userHash = registerUser(username, nickname, email,
-							password);
-					startActivity(new Intent(this, LoginActivity.class));
-				} catch (ClientProtocolException e) {
-					Toast.makeText(getBaseContext(), "ClientProtocolException",
-							Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				} catch (IOException e) {
-					Toast.makeText(getBaseContext(), "IOException",
-							Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				} catch (JSONException e) {
-					Toast.makeText(getBaseContext(), "JSONException",
-							Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				}
+				task = new RegistrationActivityTask();
+				task.execute(new String[] { "" });
 			}
 			break;
 		}
 	}
 
-	private String registerUser(String username, String nickname, String email,
-			String password) throws ClientProtocolException, IOException, JSONException {
-		
-		// Setup out HTTP client and POST url
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Utility.registerURL);
+	// class to execute the asynchronous task. Since, we cannot the run the http
+	// post and get in UI thread.
+	public class RegistrationActivityTask extends
+			AsyncTask<String, Void, String> {
+		String strResponse = "";
+		int responseCode;
 
-		// set the header of our POST
-		post.setHeader("Content-type", "application/json");
+		@Override
+		protected String doInBackground(String... params) {
+			try {
+				strResponse = registerUser(txtUserName.getText().toString(),
+						"", txtEmail.getText().toString(), txtPassword
+								.getText().toString());
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return strResponse;
+		}
 
-		// create object for json object
-		JSONObject registerJSON = new JSONObject();
+		@Override
+		protected void onPostExecute(String result) {
+			navigate(strResponse, responseCode);
+		}
 
-		// populate our JSON object
-		registerJSON.accumulate("email", email);
-		registerJSON.accumulate("username", username);
-		registerJSON.accumulate("password", password);
+		@Override
+		protected void onPreExecute() {
+		}
 
-		// create object for name value pairs
-		List<NameValuePair> regParams = new ArrayList<NameValuePair>();
-		regParams.add(new BasicNameValuePair("body", registerJSON.toString()));
+		@Override
+		protected void onProgressUpdate(Void... values) {
+		}
 
-		// Set the HTTP Entity
-		post.setEntity(new UrlEncodedFormEntity(regParams));
+		private String registerUser(String username, String nickname,
+				String email, String password) throws ClientProtocolException,
+				IOException, JSONException {
 
-		// Set the entity for our JSON object
-		StringEntity entityJSON = new StringEntity(registerJSON.toString(),
-				HTTP.UTF_8);
-		post.setEntity(entityJSON);
+			// input stream object instance
+			InputStream inputStream = null;
 
-		// POST the message
-		HttpResponse response = client.execute(post);
+			// holds the response
+			String result = "";
 
-		// Show our response
-		System.out.println("\nSending 'POST' request to URL : "
-				+ Utility.registerURL);
-		System.out.println("Post parameters : " + post.getEntity());
-		System.out.println("Response Code : "
-				+ response.getStatusLine().getStatusCode());
+			// create HttpClient
+			HttpClient client = new DefaultHttpClient();
 
-		// Get the response
-		// input stream object instance
-		InputStream inputStream = response.getEntity().getContent();
-		String result = "";
+			// make POST request to the given URL.
+			HttpPost post = new HttpPost(Utility.registerURL);
 
-		// Convert InputStream to String
-		if (inputStream != null)
-			result = convertInputStreamToString(inputStream);
-		else
-			result = "No result found.";
+			// create object for json object
+			JSONObject registerJSON = new JSONObject();
 
-		// Print our result
-		System.out.println(result);
+			// populate our JSON object
+			registerJSON.accumulate("email", email);
+			registerJSON.accumulate("username", username);
+			registerJSON.accumulate("password", password);
 
-		return result;
-	}
+			// create object for name value pairs
+			List<NameValuePair> regParams = new ArrayList<NameValuePair>();
 
-	// method to convert the stream to string
-	private String convertInputStreamToString(InputStream inputStream)
-			throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(inputStream));
-		String line = "";
-		String result = "";
-		while ((line = bufferedReader.readLine()) != null)
-			result += line;
+			regParams.add(new BasicNameValuePair("body", registerJSON
+					.toString()));
 
-		inputStream.close();
-		return result;
+			// set the header of our POST
+			post.setHeader("Content-type", "application/json");
 
+			// Set the HTTP Entity
+			post.setEntity(new UrlEncodedFormEntity(regParams));
+
+			// Set the entity for our JSON object
+			StringEntity entityJSON = new StringEntity(registerJSON.toString(),
+					HTTP.UTF_8);
+			post.setEntity(entityJSON);
+
+			// POST the message
+			HttpResponse response = client.execute(post);
+
+			// Show our response
+			System.out.println("\nSending 'POST' request to URL : "
+					+ Utility.registerURL);
+			System.out.println("Post parameters : " + post.getEntity());
+			System.out.println("Response Code : "
+					+ response.getStatusLine().getStatusCode());
+
+			// Get the response
+			inputStream = response.getEntity().getContent();
+
+			// get code
+			responseCode = response.getStatusLine().getStatusCode();
+
+			// Convert InputStream to String
+			if (inputStream != null)
+				result = convertInputStreamToString(inputStream);
+			else
+				result = "no response";
+
+			// Print our result
+			System.out.println(result);
+
+			return result;
+		}
+
+		// method to convert the stream to string
+		private String convertInputStreamToString(InputStream inputStream)
+				throws IOException {
+			BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(inputStream));
+			String line = "";
+			String result = "";
+			while ((line = bufferedReader.readLine()) != null)
+				result += line;
+
+			inputStream.close();
+			return result;
+
+		}
+
+		// method to check whether device is connected to Internet
+		public boolean isConnected() {
+			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+			if (networkInfo != null && networkInfo.isConnected())
+				return true;
+			else
+				return false;
+		}
 	}
 
 	private boolean validateUsername(String txtUserName) {
