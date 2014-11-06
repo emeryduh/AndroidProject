@@ -510,14 +510,18 @@ public class ChatActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		Intent intent = null;
+		// Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.action_settings:
+	            return true;
+	        case R.id.profile:
+	        	intent = new Intent(this, ProfileActivity.class);			
+				startActivity(intent);	
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
 }

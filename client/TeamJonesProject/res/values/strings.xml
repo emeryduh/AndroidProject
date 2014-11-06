@@ -4,6 +4,7 @@
     <!-- Application Global text -->
     <string name="app_name">CentChat</string>
     <string name="action_settings">Settings</string>
+    <string name="profile_page">Profile</string>
     <string name="headerDesc">The image is a header for the CentChat application.</string>
 
     <!-- Chat screen text -->
@@ -26,16 +27,19 @@
     <string name="register_password_text">Password</string>
     <string name="register_password_check_text">Confirm Password</string>
     <string name="register_submit_text">SIGN UP</string>
-    <string name="register_activity_title">Registration Form</string>    
+    <string name="register_activity_title">Registration Form</string>
 
     <!-- Launch screen text -->
     <string name="launch_header_text">CENTCHAT</string>
     <string name="launch_logo_text">Meet and connect new people</string>
     <string name="launch_btnsignup_text">Sign Up</string>
     <string name="launch_btnLoginp_text">Login</string>
-    
-      <!-- Main screen text -->
+
+    <!-- Main screen text -->
     <string name="main_header_text">CENTCHAT</string>
-    <string name="main_logo_text">Meet and connect new people</string>        
+    <string name="main_logo_text">Meet and connect new people</string>
     <string name="main_btnenter_text">Enter</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
