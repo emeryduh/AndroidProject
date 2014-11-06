@@ -8,9 +8,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.comp313.ProfileActivity" >
 
-    <TextView
+    <Button
+        android:id="@+id/editProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/editProfile_text" 
+        android:onClick="validateEdit"/>
+
+  
+      <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfile"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile1" />
+
+	<EditText
+	    android:id="@+id/aboutMe"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/login_username_height"
+	    android:layout_alignRight="@+id/editProfile"
+	    android:layout_below="@+id/statusProfile"
+	    android:layout_marginTop="15dp"
+	    android:background="@drawable/edittextstyle"
+	    android:ems="10"
+	    android:inputType="textMultiLine"
+	    android:hint="@string/aboutMe_text" >
+
+	    <requestFocus />
+	</EditText>
+
+	<EditText
+	    android:id="@+id/displayName"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/login_username_height"
+	    android:layout_alignRight="@+id/editProfile"
+	    android:layout_below="@+id/profilePicture"
+	    android:layout_marginTop="15dp"
+	    android:background="@drawable/edittextstyle"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:hint="@string/displayName_text" />
+
+	<EditText
+	    android:id="@+id/statusProfile"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/login_username_height"
+	    android:layout_alignLeft="@+id/displayName"
+	    android:layout_below="@+id/displayName"
+	    android:layout_marginTop="15dp"
+	    android:background="@drawable/edittextstyle"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:hint="@string/statusProfile_text" />
 
 </RelativeLayout>

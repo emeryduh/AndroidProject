@@ -41,5 +41,11 @@
     <string name="main_btnenter_text">Enter</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- Profile screen text -->
+    <string name="editProfile_text">Edit</string>
+    <string name="statusProfile_text">Status</string>
+    <string name="displayName_text">Display Name</string>
+    <string name="aboutMe_text">About Me</string>
 
 </resources>
