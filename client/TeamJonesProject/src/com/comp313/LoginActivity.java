@@ -108,6 +108,9 @@ public class LoginActivity extends Activity {
 	// method to navigate to next activity
 	@SuppressLint("CommitPrefEdits")
 	public void navigate(String strResponse, int code) {
+		// trim the response to just the ID
+		strResponse = strResponse.substring(strResponse.indexOf(":") + 2, strResponse.length() - 2);
+		
 		switch (code) {
 		case 200:
 			showToast(strResponse);

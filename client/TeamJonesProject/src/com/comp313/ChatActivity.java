@@ -57,10 +57,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-/**
- * @author Vivekanandhan
- * 
- */
 public class ChatActivity extends Activity {
 
 	// custom array adapter to hold arbitrary objects
@@ -85,10 +81,10 @@ public class ChatActivity extends Activity {
 	private String strUsername;
 
 	// holds the push message response
-	private String strPushMessage = "";
+	//private String strPushMessage = "";
 
 	// holds the get message response
-	private String strGetMessage = "";
+	//private String strGetMessage = "";
 
 	// instance id for chat activity task
 	ChatActivityTask task;
@@ -284,24 +280,6 @@ public class ChatActivity extends Activity {
 					"username"), timeStamp));
 		}
 	}
-	
-	/* This is no longer used, refer to ChatActivityTask.class
-	 * 
-	// add the new text to adapter which push the message to list view
-	private boolean sendChatMessage() {
-		// get the current date time
-		String timeStamp = new SimpleDateFormat("hh:mm aa").format(Calendar
-				.getInstance().getTime());
-
-		chatArrayAdapter.add(new Message(side,
-				txtChatText.getText().toString(), strUsername, timeStamp));
-		txtChatText.setText("");
-
-		// change the bool value after text entered. this will be modified
-		side = !side;
-		return true;
-	}
-	*/
 
 	// class to execute the asynchronous task. Since, we cannot the run the http
 	// post and get in UI thread.
