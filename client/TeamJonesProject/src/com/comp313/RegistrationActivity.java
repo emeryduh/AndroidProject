@@ -137,7 +137,7 @@ public class RegistrationActivity extends Activity {
 					.toString();
 			// If all fields pass validation
 			if (validateUsername(username) && validateNickname(nickname)
-					&& validateEmail(email) && validatePassword(password)
+					&& validateEmail(email) && validatePassword(password, confirmPassword)
 					&& validateConfirmPassword(confirmPassword)) {
 				task = new RegistrationActivityTask();
 				task.execute(new String[] { "" });
@@ -308,22 +308,28 @@ public class RegistrationActivity extends Activity {
 		}
 	}
 
-	private boolean validatePassword(String txtPassword) {
-		if (txtPassword != null && txtPassword.length() > 6) {
-			return true;
+	private boolean validatePassword(String password, String confirmPassword) {
+		if (password != null && password.length() > 6) {
+			if(password.equals(confirmPassword)) {
+				return true;
+			} else {
+				this.txtPassword
+					.setError("Password has to be longer than 6 characters!");
+				return false;
+			}
 		} else {
 			this.txtPassword
-					.setError("Password has to be longer than 6 characters!");
+				.setError("Password has to be longer than 6 characters!");
 			return false;
 		}
 	}
 
-	private boolean validateConfirmPassword(String txtConfirmPassword) {
-		if (txtConfirmPassword != null && txtPassword.length() > 6) {
+	private boolean validateConfirmPassword(String confirmPassword) {
+		if (confirmPassword != null && confirmPassword.length() > 6) {
 			return true;
 		} else {
 			this.txtConfirmPassword
-					.setError("Confirmed Password has to be longer than 6 characters!");
+				.setError("Confirmed Password has to be longer than 6 characters!");
 			return false;
 		}
 	}
