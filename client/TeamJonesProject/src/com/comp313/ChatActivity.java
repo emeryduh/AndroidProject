@@ -232,7 +232,7 @@ public class ChatActivity extends Activity {
 	private void LoadMessagesToList(String message) throws JSONException,
 			ParseException {
 		// clear the adapter to add new messages
-		chatArrayAdapter.Clear();
+		chatArrayAdapter.clearList();
 
 		// holds to time stamp
 		String timeStamp = "";
@@ -279,6 +279,14 @@ public class ChatActivity extends Activity {
 					.getString("message"), arr.getJSONObject(i).getString(
 					"username"), timeStamp));
 		}
+	}
+	
+	private void setTypeText(String text) {
+		txtChatText.setText("");
+	}
+	
+	private String getTypeText() {
+		return txtChatText.getText().toString();
 	}
 
 	// class to execute the asynchronous task. Since, we cannot the run the http
@@ -333,7 +341,6 @@ public class ChatActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<String> result) {
-			// TODO Auto-generated method stub
 			/**
 			 * update ui thread and remove dialog
 			 */
@@ -344,18 +351,16 @@ public class ChatActivity extends Activity {
 				String timeStamp = new SimpleDateFormat("hh:mm aa")
 						.format(Calendar.getInstance().getTime());
 
-				chatArrayAdapter.add(new Message(false, txtChatText.getText()
-						.toString(), strUsername, timeStamp));
+				chatArrayAdapter.add(new Message(false, getTypeText(),
+						strUsername, timeStamp));
 				
-				txtChatText.setText("");
+				setTypeText("");
 			} else {
 				try {
 					LoadMessagesToList(result.get(0).toString());
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

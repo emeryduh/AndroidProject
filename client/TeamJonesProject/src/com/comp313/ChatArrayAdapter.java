@@ -58,7 +58,7 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 	}
 	
 	// method to clear the list
-	public void Clear()
+	public void clearList()
 	{
 		chatMessageList.clear();
 	}
@@ -87,15 +87,15 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		// get the chat text control instance from list item template
 		chatText = (TextView) row.findViewById(R.id.tvMessage);
 		// set the text
-		chatText.setText(chatMessageObj.MessageText);
+		chatText.setText(chatMessageObj.getMessageText());
 
 		// get the name text control instance from list item template
 		tvName = (TextView) row.findViewById(R.id.tvName);
 		// set the text
-		tvName.setText(chatMessageObj.User);
+		tvName.setText(chatMessageObj.getUserId());
 		
 		// change the color name based on user name
-		if(!chatMessageObj.Left)
+		if(!chatMessageObj.isLeft())
 			tvName.setTextColor(Color.parseColor("#26A65B"));
 		else
 			tvName.setTextColor(Color.parseColor("#8e44ad"));
@@ -103,15 +103,15 @@ public class ChatArrayAdapter extends ArrayAdapter<Object> {
 		// get the date text control instance from list item template
 		tvDateTime = (TextView) row.findViewById(R.id.tvDateTime);
 		// set the text
-		tvDateTime.setText(chatMessageObj.Date);
+		tvDateTime.setText(chatMessageObj.getDate());
 
 		// set the background bubble image based on boolean value
 		childContainer
-				.setBackgroundResource(chatMessageObj.Left ? R.drawable.bubble_a
+				.setBackgroundResource(chatMessageObj.isLeft() ? R.drawable.bubble_a
 						: R.drawable.bubble_b);
 
 		// set the right or left position based on boolean value
-		parentContainer.setGravity(chatMessageObj.Left ? Gravity.LEFT
+		parentContainer.setGravity(chatMessageObj.isLeft() ? Gravity.LEFT
 				: Gravity.RIGHT);
 		return row;
 	}

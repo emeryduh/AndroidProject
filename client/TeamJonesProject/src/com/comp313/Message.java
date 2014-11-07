@@ -10,45 +10,52 @@ package com.comp313;
 public class Message {
 
 	// holds left or right boolean value
-	public boolean Left;
+	private boolean left;
 
 	// holds string message
-	public String MessageText;
+	private String messageText;
 
 	// holds name
-	public String User;
+	private String userId;
 
 	// holds name
-	public String Date;
+	private String date;
 
 	public Message(boolean left, String message, String name, String dateTime) {
 		super();
-		this.Left = left;
-		this.MessageText = message;
-		this.User = name;
-		this.Date = dateTime;
+		this.left = left;
+		this.messageText = message;
+		this.userId = name;
+		this.date = dateTime;
 
+	}
+
+	/**
+	 * @return userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @return date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * @return messageText
+	 */
+	public String getMessageText() {
+		return messageText;
 	}
 	
 	/**
-	   * @return the userId
-	   */
-	  public String getUserId() {
-	    return User;
-	  }
-
-	  /**
-	   * @return the date
-	   */
-	  public String getDate() {
-	    return Date;
-	  }
-
-	  /**
-	   * @return the messageText
-	   */
-	  public String getMessageText() {
-	    return MessageText;
-	  }
+	 * @return left
+	 */
+	 public boolean isLeft() {
+		 return left;
+	 }
 
 }
