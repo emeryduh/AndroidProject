@@ -165,7 +165,10 @@ public class ChatActivity extends Activity {
 			@Override
 			public void onChanged() {
 				super.onChanged();
-				lstChatMessages.setSelection(chatArrayAdapter.getCount() - 1);
+				// If there are no messages, nothing happens
+				if(chatArrayAdapter.getCount() > 0) {
+					lstChatMessages.setSelection(chatArrayAdapter.getCount() - 1);
+				}
 			}
 		});
 
@@ -232,8 +235,10 @@ public class ChatActivity extends Activity {
 	private void LoadMessagesToList(String message) throws JSONException,
 			ParseException {
 		// clear the adapter to add new messages
-		chatArrayAdapter.clearList();
-
+		//TODO: This method needs to be re-enabled, but currently it is causing issues
+		// with the UI thread.
+		//chatArrayAdapter.clearList();
+		
 		// holds to time stamp
 		String timeStamp = "";
 
