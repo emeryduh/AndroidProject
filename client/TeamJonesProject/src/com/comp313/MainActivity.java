@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 			SharedPreferences pref = getApplicationContext()
 					.getSharedPreferences("AppPref", 0);
 			// to store and retrieve value using editor
-			Editor editor = pref.edit();
+			// Editor editor = pref.edit();
 			String userId = pref.getString("userId", null);
 			if (userId == null || userId.isEmpty()) {
 				intent = new Intent(this, RegistrationActivity.class);
@@ -66,7 +66,6 @@ public class MainActivity extends Activity {
 				intent = new Intent(this, ChatActivity.class);
 				intent.putExtra("userId", userId);
 				intent.putExtra("roomid", value[1]);
-				// getCellTowerInfo();
 				startActivity(intent);
 			}
 			break;

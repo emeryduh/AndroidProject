@@ -96,6 +96,8 @@ public class LoginActivity extends Activity {
 		Editor editor = pref.edit();
 		// store userId
 		editor.putString("userId", strResponse);
+		// commit the changes
+		editor.commit();
 		// intent
 		Intent intent = new Intent(this, ChatActivity.class);
 		intent.putExtra("userId", strResponse);
