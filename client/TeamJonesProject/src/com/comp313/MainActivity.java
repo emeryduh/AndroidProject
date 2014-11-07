@@ -83,11 +83,17 @@ public class MainActivity extends Activity {
 		GsmCellLocation cellLocation = (GsmCellLocation) tm.getCellLocation();
 
 		String[] value = new String[2];
-		// returns cell id
-		value[0] = String.valueOf(cellLocation.getCid() % 0xffff);
+		try {
+			// returns cell id
+			value[0] = String.valueOf(cellLocation.getCid() % 0xffff);
 
-		// returns cell location
-		value[1] = String.valueOf(cellLocation.getLac() % 0xffff);
+			// returns cell location
+			value[1] = String.valueOf(cellLocation.getLac() % 0xffff);
+		} catch (NullPointerException e) {
+			value[0] = "test";
+			value[1] = "test";
+			return value;
+		}
 		return value;
 	}
 }

@@ -42,10 +42,10 @@ import android.widget.Toast;
 public class RegistrationActivity extends Activity {
 
 	// holds the error response
-	private String strResponse;
+	//private String strResponse;
 
 	// user agent
-	private final String USER_AGENT = "Mozilla/5.0";
+	//private final String USER_AGENT = "Mozilla/5.0";
 
 	// instance variable for input fields
 	private EditText txtUserName, txtNickName, txtEmail, txtPassword,
@@ -96,12 +96,15 @@ public class RegistrationActivity extends Activity {
 	// method to navigate to next activity
 	public void navigate(String strResponse, int code) {
 		switch (code) {
+		// User has been registered
 		case 200:
 			showToast(strResponse);
+			startActivity(new Intent(this, LoginActivity.class));
 			break;
 		case 400:
 			showToast(strResponse);
 			break;
+		// Server cannot be reached
 		case 500:
 			showToast("Server cannot be reached");
 			break;
@@ -157,13 +160,10 @@ public class RegistrationActivity extends Activity {
 						"", txtEmail.getText().toString(), txtPassword
 								.getText().toString());
 			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return strResponse;
