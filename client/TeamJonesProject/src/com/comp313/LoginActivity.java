@@ -85,12 +85,31 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	// This will logint he user provided the userId
+	public void login(String strResponse) {
+		// get the tower location
+		String[] value = getCellTowerInfo();
+		// to store the userId locally
+		SharedPreferences pref = getApplicationContext().getSharedPreferences(
+				"AppPref", 0);
+		// to store and retrieve value using editor
+		Editor editor = pref.edit();
+		// store userId
+		editor.putString("userId", strResponse);
+		// intent
+		Intent intent = new Intent(this, ChatActivity.class);
+		intent.putExtra("userId", strResponse);
+		intent.putExtra("roomid", value[1]);
+		startActivity(intent);
+	}
+
 	// method to navigate to next activity
 	@SuppressLint("CommitPrefEdits")
 	public void navigate(String strResponse, int code) {
 		switch (code) {
 		case 200:
 			showToast(strResponse);
+			login(strResponse);
 			break;
 		case 400:
 			showToast(strResponse);
@@ -101,26 +120,12 @@ public class LoginActivity extends Activity {
 		case 500:
 			showToast("Server cannot be reached");
 			break;
-		default:			
-			// get the tower location
-			String[] value = getCellTowerInfo();
-			// to store the userId locally
-			SharedPreferences pref = getApplicationContext().getSharedPreferences("AppPref", 0);
-			// to store and retrieve value using editor
-			Editor editor = pref.edit();
-			// store userId
-			editor.putString("userId", strResponse);
-			// intent
-			Intent intent = new Intent(this, ChatActivity.class);
-			intent.putExtra("userId", strResponse);
-			intent.putExtra("roomid", value[1]);
-			startActivity(intent);
+		default:
+			login(strResponse);
 			break;
 		}
 	}
 
-	
-	
 	// method to get cell tower info
 	public String[] getCellTowerInfo() {
 		// provides access to information about the telephony services on the
@@ -131,11 +136,17 @@ public class LoginActivity extends Activity {
 		GsmCellLocation cellLocation = (GsmCellLocation) tm.getCellLocation();
 
 		String[] value = new String[2];
-		// returns cell id
-		value[0] = String.valueOf(cellLocation.getCid() % 0xffff);
+		try {
+			// returns cell id
+			value[0] = String.valueOf(cellLocation.getCid() % 0xffff);
 
-		// returns cell location
-		value[1] = String.valueOf(cellLocation.getLac() % 0xffff);
+			// returns cell location
+			value[1] = String.valueOf(cellLocation.getLac() % 0xffff);
+		} catch (NullPointerException e) {
+			value[0] = Utility.noRoomFoundID;
+			value[1] = Utility.noRoomFoundID;
+			return value;
+		}
 		return value;
 	}
 

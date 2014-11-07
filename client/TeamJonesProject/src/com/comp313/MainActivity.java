@@ -90,8 +90,8 @@ public class MainActivity extends Activity {
 			// returns cell location
 			value[1] = String.valueOf(cellLocation.getLac() % 0xffff);
 		} catch (NullPointerException e) {
-			value[0] = "test";
-			value[1] = "test";
+			value[0] = Utility.noRoomFoundID;
+			value[1] = Utility.noRoomFoundID;
 			return value;
 		}
 		return value;
