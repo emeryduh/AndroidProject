@@ -38,6 +38,9 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -58,6 +61,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class ChatActivity extends Activity {
+	
+	// holds the sound files
+	private SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
 	// custom array adapter to hold arbitrary objects
 	private ChatArrayAdapter chatArrayAdapter;
@@ -101,6 +107,9 @@ public class ChatActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// load the sound files to the soundpool
+		soundPool.load(this, R.raw.message, 1);
 
 		// get the action bar instance
 		ActionBar bar = getActionBar();
@@ -283,6 +292,7 @@ public class ChatActivity extends Activity {
 			chatArrayAdapter.add(new Message(side, arr.getJSONObject(i)
 					.getString("message"), arr.getJSONObject(i).getString(
 					"username"), timeStamp));
+			
 		}
 	}
 	
@@ -412,6 +422,9 @@ public class ChatActivity extends Activity {
 		public String PushMessage(String url) throws ClientProtocolException,
 				IOException, JSONException {
 
+			// outgoing message sound
+			soundPool.play(1, 100, 100, 1, 0, 1f);
+			
 			// input stream object instance
 			InputStream inputStream = null;
 
