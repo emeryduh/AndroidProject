@@ -83,14 +83,11 @@ public class ChatActivity extends Activity {
 	// holds the room id
 	private String strRoomId;
 	
-	// holds the user name
+	// holds the user name HASH
 	private String strUsername;
-
-	// holds the push message response
-	//private String strPushMessage = "";
-
-	// holds the get message response
-	//private String strGetMessage = "";
+	
+	// holds the textual user name that shows to all users
+	private String strTrueUsername;
 
 	// instance id for chat activity task
 	ChatActivityTask task;
@@ -127,6 +124,7 @@ public class ChatActivity extends Activity {
 
 		// get extras from intent and assign them
 		strRoomId = extras.getString("roomid");
+		strTrueUsername = extras.getString("userName");
 		strUsername = extras.getString("userId");
 
 		// acquire our layout controls
@@ -246,7 +244,7 @@ public class ChatActivity extends Activity {
 		// clear the adapter to add new messages
 		//TODO: This method needs to be re-enabled, but currently it is causing issues
 		// with the UI thread.
-		//chatArrayAdapter.clearList();
+		chatArrayAdapter.clearList();
 		
 		// holds to time stamp
 		String timeStamp = "";
@@ -262,7 +260,7 @@ public class ChatActivity extends Activity {
 			// This will determine which side a message goes on
 			// Our Messages = Left side
 			// All other message = Right side
-			if (arr.getJSONObject(i).getString("username").equalsIgnoreCase(strUsername))
+			if (arr.getJSONObject(i).getString("username").equalsIgnoreCase(strTrueUsername))
 				side = false;
 			else
 				side = true;
@@ -365,7 +363,8 @@ public class ChatActivity extends Activity {
 				// get the current date time
 				String timeStamp = new SimpleDateFormat("hh:mm aa")
 						.format(Calendar.getInstance().getTime());
-
+				
+				//TODO: Verify changes
 				chatArrayAdapter.add(new Message(false, getTypeText(),
 						strUsername, timeStamp));
 				

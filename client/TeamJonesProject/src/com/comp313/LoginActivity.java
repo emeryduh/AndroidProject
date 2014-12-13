@@ -98,10 +98,14 @@ public class LoginActivity extends Activity {
 		editor.putString("userId", strResponse);
 		// commit the changes
 		editor.commit();
+		// Gather our username by removing the @...com
+		String tempUN = txtEmail.getText().toString(); // Temp string to hold our username
+		
 		// intent
 		Intent intent = new Intent(this, ChatActivity.class);
 		intent.putExtra("userId", strResponse);
 		intent.putExtra("roomid", value[1]);
+		intent.putExtra("userName", tempUN.substring(0, tempUN.indexOf("@")));
 		startActivity(intent);
 	}
 
